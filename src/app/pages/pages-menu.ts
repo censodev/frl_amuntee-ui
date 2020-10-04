@@ -2,18 +2,68 @@ import { NbMenuItem } from '@nebular/theme';
 
 export const MENU_ITEMS: NbMenuItem[] = [
   {
-    title: 'E-commerce',
-    icon: 'shopping-cart-outline',
+    title: 'Dashboard',
+    icon: 'home-outline',
     link: '/pages/dashboard',
     home: true,
   },
+  // {
+  //   title: 'IoT Dashboard',
+  //   icon: 'shopping-cart-outline',
+  //   link: '/pages/iot-dashboard',
+  // },
   {
-    title: 'IoT Dashboard',
-    icon: 'home-outline',
-    link: '/pages/iot-dashboard',
+    title: 'BUSINESS',
+    group: true,
   },
   {
-    title: 'FEATURES',
+    title: 'Revenue',
+    icon: 'trending-up-outline',
+    children: [
+      {
+        title: 'Statistic',
+        link: '/pages/revenue/statistic',
+      },
+      {
+        title: 'Orders',
+        link: '/pages/revenue/order',
+      },
+    ],
+  },
+  {
+    title: 'Fees',
+    icon: 'trending-down-outline',
+    link: '/pages/fee',
+    children: [
+      {
+        title: 'Marketing',
+        link: '/pages/fee/marketing',
+      },
+      {
+        title: 'Base Cost',
+        link: '/pages/fee/base-cost',
+      },
+      {
+        title: 'PayGate Fee',
+        link: '/pages/fee/paygate',
+      },
+      {
+        title: 'Dispute',
+        link: '/pages/fee/dispute',
+      },
+    ],
+  },
+  {
+    title: 'ACCOUNT',
+    group: true,
+  },
+  {
+    title: 'Users',
+    icon: 'people-outline',
+    link: '/pages/user',
+  },
+  {
+    title: 'THEME',
     group: true,
   },
   {
@@ -209,38 +259,6 @@ export const MENU_ITEMS: NbMenuItem[] = [
       {
         title: 'Tree Grid',
         link: '/pages/tables/tree-grid',
-      },
-    ],
-  },
-  {
-    title: 'Miscellaneous',
-    icon: 'shuffle-2-outline',
-    children: [
-      {
-        title: '404',
-        link: '/pages/miscellaneous/404',
-      },
-    ],
-  },
-  {
-    title: 'Auth',
-    icon: 'lock-outline',
-    children: [
-      {
-        title: 'Login',
-        link: '/auth/login',
-      },
-      {
-        title: 'Register',
-        link: '/auth/register',
-      },
-      {
-        title: 'Request Password',
-        link: '/auth/request-password',
-      },
-      {
-        title: 'Reset Password',
-        link: '/auth/reset-password',
       },
     ],
   },

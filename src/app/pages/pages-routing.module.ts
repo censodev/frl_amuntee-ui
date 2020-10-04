@@ -15,6 +15,11 @@ const routes: Routes = [{
       component: ECommerceComponent,
     },
     {
+      path: 'revenue',
+      loadChildren: () => import('./revenue/revenue.module')
+        .then(m => m.RevenueModule),
+    },
+    {
       path: 'iot-dashboard',
       component: DashboardComponent,
     },
@@ -62,11 +67,6 @@ const routes: Routes = [{
       path: 'tables',
       loadChildren: () => import('./tables/tables.module')
         .then(m => m.TablesModule),
-    },
-    {
-      path: 'miscellaneous',
-      loadChildren: () => import('./miscellaneous/miscellaneous.module')
-        .then(m => m.MiscellaneousModule),
     },
     {
       path: '',

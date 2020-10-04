@@ -65,6 +65,7 @@ export class ECommerceChartsPanelComponent implements OnDestroy {
       .pipe(takeWhile(() => this.alive))
       .subscribe(profitChartData => {
         this.profitChartData = profitChartData;
+        console.log(profitChartData)
       });
   }
 
