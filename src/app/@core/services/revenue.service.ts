@@ -29,4 +29,24 @@ export class RevenueService {
   statistic() {
     return this.http.get(`${BASE_URL}/statistic`);
   }
+
+  statisticForSeller() {
+    return this.http.get(`${BASE_URL}/statistic/seller`);
+  }
+
+  statisticForSupplier() {
+    return this.http.get(`${BASE_URL}/statistic/supplier`);
+  }
+
+  statisticForProductSku() {
+    return this.http.get(`${BASE_URL}/statistic/product-sku`);
+  }
+
+  statisticForProductCode() {
+    return this.http.get(`${BASE_URL}/statistic/product-code`);
+  }
+
+  statisticForProductDesign() {
+    return this.http.get(`${BASE_URL}/statistic/product-design`);
+  }
 }

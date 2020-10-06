@@ -6,16 +6,16 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 
 const routes: Routes = [
   {
-    path: 'statistic',
-    component: StatisticComponent,
-  },
-  {
     path: 'order',
     component: OrderComponent,
   },
   {
     path: 'order/:code',
     component: OrderDetailsComponent,
+  },
+  {
+    path: 'statistic',
+    component: StatisticComponent,
   },
 ];
 

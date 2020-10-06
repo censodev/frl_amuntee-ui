@@ -10,10 +10,13 @@ import { ThemeModule } from 'app/@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { RevenueCompanyComponent } from './statistic/revenue-company/revenue-company.component';
 import { NgxEchartsModule } from 'ngx-echarts';
+import { RevenueSellerComponent } from './statistic/revenue-seller/revenue-seller.component';
+import { RevenueSupplierComponent } from './statistic/revenue-supplier/revenue-supplier.component';
+import { RevenueProductComponent } from './statistic/revenue-product/revenue-product.component';
 
 
 @NgModule({
-  declarations: [OrderComponent, OrderDetailsComponent, StatisticComponent, RevenueCompanyComponent],
+  declarations: [OrderComponent, OrderDetailsComponent, StatisticComponent, RevenueCompanyComponent, RevenueSellerComponent, RevenueSupplierComponent, RevenueProductComponent],
   imports: [
     CommonModule,
     RevenueRoutingModule,

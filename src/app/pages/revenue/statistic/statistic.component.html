@@ -1,1 +1,7 @@
 <ngx-revenue-company *ngIf="revenueCompanyData" #revenueChart [profitChartData]="revenueCompanyData"></ngx-revenue-company>
+<ngx-revenue-seller *ngIf="revenueSeller" [source]="revenueSeller"></ngx-revenue-seller>
+<ngx-revenue-supplier *ngIf="revenueSupplier" [source]="revenueSupplier"></ngx-revenue-supplier>
+<ngx-revenue-product *ngIf="revenueProductSku"
+    [sourceProductSku]="revenueProductSku"
+    [sourceProductCode]="revenueProductCode"
+    [sourceProductDesign]="revenueProductDesign"></ngx-revenue-product>

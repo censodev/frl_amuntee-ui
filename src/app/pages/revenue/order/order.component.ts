@@ -8,8 +8,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./order.component.scss'],
 })
 export class OrderComponent implements OnInit {
-  currentPage: number;
-
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -23,20 +21,6 @@ export class OrderComponent implements OnInit {
       edit: false,
       delete: false,
     },
-    // add: {
-    //   addButtonContent: '<i class="nb-plus"></i>',
-    //   createButtonContent: '<i class="nb-checkmark"></i>',
-    //   cancelButtonContent: '<i class="nb-close"></i>',
-    // },
-    // edit: {
-    //   editButtonContent: '<i class="nb-edit"></i>',
-    //   saveButtonContent: '<i class="nb-checkmark"></i>',
-    //   cancelButtonContent: '<i class="nb-close"></i>',
-    // },
-    // delete: {
-    //   deleteButtonContent: '<i class="nb-trash"></i>',
-    //   confirmDelete: true,
-    // },
     columns: {
       code: {
         title: 'Order Code',
@@ -71,17 +55,8 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.revenueService.listOrder(100).subscribe(orders => {
-      console.log(orders);
       this.source.load(orders.content);
     });
-  }
-
-  onEdited(evt: any) {
-    console.log(evt);
-  }
-
-  onPageChanged(evt: any) {
-    console.log(evt);
   }
 
 }
