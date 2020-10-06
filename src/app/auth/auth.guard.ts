@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: NbAuthService,
@@ -23,7 +23,7 @@ export class AuthGuard implements CanActivate {
       //     }
       //   }),
       // );
-      return true;
+      return true; 
   }
 
 }

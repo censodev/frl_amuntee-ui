@@ -7,9 +7,9 @@ export interface Order {
     paygateName: string;
     financialStatus: string;
     fulfillmentStatus: string;
-    createdAt: Date;
-    updatedAt: Date;
-    closedAt: Date;
+    createdAt: any;
+    updatedAt: any;
+    closedAt: any;
     paymentTransactions?: any;
     products?: any;
 }

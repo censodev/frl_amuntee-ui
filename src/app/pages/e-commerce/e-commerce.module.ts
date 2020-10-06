@@ -1,3 +1,4 @@
+import { RevenueModule } from './../revenue/revenue.module';
 import { NgModule } from '@angular/core';
 import {
   NbButtonModule,
@@ -71,6 +72,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
+    RevenueModule,
   ],
   declarations: [
     ECommerceComponent,

@@ -16,7 +16,15 @@ import { RevenueProductComponent } from './statistic/revenue-product/revenue-pro
 
 
 @NgModule({
-  declarations: [OrderComponent, OrderDetailsComponent, StatisticComponent, RevenueCompanyComponent, RevenueSellerComponent, RevenueSupplierComponent, RevenueProductComponent],
+  declarations: [
+    OrderComponent,
+    OrderDetailsComponent,
+    StatisticComponent,
+    RevenueCompanyComponent,
+    RevenueSellerComponent,
+    RevenueSupplierComponent,
+    RevenueProductComponent,
+  ],
   imports: [
     CommonModule,
     RevenueRoutingModule,
@@ -26,6 +34,9 @@ import { RevenueProductComponent } from './statistic/revenue-product/revenue-pro
     ThemeModule,
     Ng2SmartTableModule,
     NgxEchartsModule,
+  ],
+  exports: [
+    RevenueCompanyComponent,
   ],
 })
 export class RevenueModule { }

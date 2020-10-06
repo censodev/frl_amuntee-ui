@@ -30,6 +30,10 @@ export class OrderComponent implements OnInit {
         title: 'Order Name',
         type: 'string',
       },
+      createdAt: {
+        title: 'Date',
+        type: 'string',
+      },
       subTotalPrice: {
         title: 'Subtotal Price',
         type: 'double',
@@ -37,6 +41,10 @@ export class OrderComponent implements OnInit {
       totalPrice: {
         title: 'Total Price',
         type: 'double',
+      },
+      paygateName: {
+        title: 'Paygate',
+        type: 'string',
       },
       financialStatus: {
         title: 'Financial Status',
@@ -55,6 +63,18 @@ export class OrderComponent implements OnInit {
 
   ngOnInit(): void {
     this.revenueService.listOrder(100).subscribe(orders => {
+      orders.content = orders.content.map(i => {
+        const date = new Date(i.createdAt[0],
+                              i.createdAt[1],
+                              i.createdAt[2],
+                              i.createdAt[3],
+                              i.createdAt[4],
+                              i.createdAt[5]).toUTCString();
+        return {
+          ...i,
+          createdAt: date,
+        }
+      })
       this.source.load(orders.content);
     });
   }

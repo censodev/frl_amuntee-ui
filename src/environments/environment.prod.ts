@@ -5,4 +5,5 @@
  */
 export const environment = {
   production: true,
+  apiUrl: 'http://45.77.250.236:8000/api',
 };

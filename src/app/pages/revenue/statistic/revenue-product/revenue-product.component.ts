@@ -48,6 +48,10 @@ export class RevenueProductComponent implements OnInit {
         title: 'Revenue',
         type: 'number',
       },
+      storeFee: {
+        title: 'Store Fee',
+        type: 'number',
+      },
     },
   };
 

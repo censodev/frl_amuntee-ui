@@ -1,0 +1,1 @@
+docker run --name printway-ui --network bridge -p 8080:80 printway-ui

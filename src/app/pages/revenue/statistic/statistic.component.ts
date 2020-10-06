@@ -10,7 +10,7 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./statistic.component.scss'],
 })
 export class StatisticComponent implements OnInit {
-  revenueCompanyData: ProfitChart;
+  // revenueCompanyData: ProfitChart;
   revenueSeller = new LocalDataSource();
   revenueSupplier = new LocalDataSource();
   revenueProductSku = new LocalDataSource();
@@ -20,8 +20,8 @@ export class StatisticComponent implements OnInit {
   constructor(private revenueService: RevenueService) { }
 
   ngOnInit(): void {
-    this.revenueService.statistic()
-      .subscribe((data: any[]) => this.callbackStatSummary(data));
+    // this.revenueService.statistic()
+    //   .subscribe((data: any[]) => this.callbackStatSummary(data));
     this.revenueService.statisticForSeller()
       .subscribe((data: any[]) => this.callbackSpecificStat(data, this.revenueSeller));
     this.revenueService.statisticForSupplier()
@@ -34,23 +34,27 @@ export class StatisticComponent implements OnInit {
       .subscribe((data: any[]) => this.callbackSpecificStat(data, this.revenueProductDesign));
   }
 
-  callbackStatSummary(data: any[]) {
-    this.revenueCompanyData = data
-      .filter(stat => stat.year && stat.month)
-      .reduce((acc, cur: any) => {
-        return {
-          data: [[...acc.data[0], cur.ordersCount], [...acc.data[1], Math.round(cur.totalPrice * 100) / 10000]],
-          chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
-        };
-      }, {
-        chartLabel: [],
-        data: [[], []],
-      });
-  }
+  // callbackStatSummary(data: any[]) {
+  //   this.revenueCompanyData = data
+  //     .filter(stat => stat.year && stat.month)
+  //     .reduce((acc, cur: any) => {
+  //       return {
+  //         data: [[...acc.data[0], cur.ordersCount], [...acc.data[1], Math.round(cur.totalPrice * 100) / 10000]],
+  //         chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
+  //       };
+  //     }, {
+  //       chartLabel: [],
+  //       data: [[], []],
+  //     });
+  // }
 
   callbackSpecificStat(data: any[], stat: LocalDataSource) {
     data = data.map(i => i.title != null
-      ? i : Object.assign(i, { title: 'Others', revenue: Math.round(i.revenue * 100) / 100 }));
+      ? i : Object.assign(i, {
+        title: 'Others',
+        revenue:  Math.round(i.revenue * 100 + Number.EPSILON) / 100,
+        storeFee: Math.round(i.storeFee * 100 + Number.EPSILON) / 100,
+      }));
     stat.load(data);
     // tslint:disable-next-line: no-console
     console.log(data);
