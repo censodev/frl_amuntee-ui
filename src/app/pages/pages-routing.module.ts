@@ -1,3 +1,4 @@
+import { DashboardComponent } from './dashboard/dashboard.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -11,7 +12,7 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
-      component: ECommerceComponent,
+      component: DashboardComponent,
     },
     {
       path: 'revenue',
