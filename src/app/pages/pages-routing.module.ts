@@ -12,12 +12,18 @@ const routes: Routes = [{
   children: [
     {
       path: 'dashboard',
-      component: DashboardComponent,
+      loadChildren: () => import('./dashboard/dashboard.module')
+        .then(m => m.DashboardModule),
     },
     {
-      path: 'revenue',
-      loadChildren: () => import('./revenue/revenue.module')
-        .then(m => m.RevenueModule),
+      path: 'store',
+      loadChildren: () => import('./store/store.module')
+        .then(m => m.StoreModule),
+    },
+    {
+      path: 'product',
+      loadChildren: () => import('./product/product.module')
+        .then(m => m.ProductModule),
     },
     {
       path: 'layout',

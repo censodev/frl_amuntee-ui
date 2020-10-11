@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ProfitChart } from 'app/@core/data/profit-chart';
-import { RevenueService } from 'app/@core/services/revenue.service';
 
 @Component({
   selector: 'ngx-ecommerce',
@@ -10,13 +9,12 @@ export class ECommerceComponent implements OnInit {
 
   revenueCompanyData: ProfitChart;
 
-  constructor(private revenueService: RevenueService) {
+  constructor() {
 
   }
 
   ngOnInit(): void {
-    this.revenueService.statistic()
-      .subscribe((data: any[]) => this.callbackStatSummary(data));
+
   }
 
   callbackStatSummary(data: any[]) {

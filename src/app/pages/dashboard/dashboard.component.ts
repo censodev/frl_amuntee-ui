@@ -1,6 +1,7 @@
+import { Store } from './../../@core/models/business/store';
+import { StoreService } from './../../@core/services/store.service';
+import { StatisticService } from './../../@core/services/statistic.service';
 import { Component, OnInit } from '@angular/core';
-import { ProfitChart } from 'app/@core/data/profit-chart';
-import { RevenueService } from 'app/@core/services/revenue.service';
 
 @Component({
   selector: 'ngx-dashboard',
@@ -9,29 +10,42 @@ import { RevenueService } from 'app/@core/services/revenue.service';
 })
 export class DashboardComponent implements OnInit {
 
-  revenueCompanyData: ProfitChart;
+  statistic = {
+    summary: undefined,
+  };
 
-  constructor(private revenueService: RevenueService) {
+  stores: Store[];
 
-  }
+  constructor(private statisticService: StatisticService,
+              private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.revenueService.statistic()
-      .subscribe((data: any[]) => this.callbackStatSummary(data));
+    this.storeService.listStores()
+      .subscribe(res => this.callbackStoreList(res.content));
+    this.statisticService.onFiltered.subscribe(data => {
+      this.statisticService.statistic(data.from, data.to, data.storeId)
+        .subscribe((res: any[]) => this.callbackStatisticSummary(res));
+    });
   }
 
-  callbackStatSummary(data: any[]) {
-    this.revenueCompanyData = data
+  callbackStoreList(data) {
+    this.stores = data;
+  }
+
+  callbackStatisticSummary(data: any[]) {
+    this.statistic.summary = data
       .filter(stat => stat.year && stat.month)
       .reduce((acc, cur: any) => {
+        const revenue = cur.revenue;
+        const fee = cur.marketingFee + cur.storeFee + cur.baseCostFee;
+        const profit = revenue - fee;
         return {
-          data: [[...acc.data[0], cur.ordersCount], [...acc.data[1], Math.round(cur.totalPrice * 100) / 10000]],
+          data: [[...acc.data[0], revenue], [...acc.data[1], fee], [...acc.data[2], profit]],
           chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
         };
       }, {
         chartLabel: [],
-        data: [[], []],
+        data: [[], [], []],
       });
   }
-
 }

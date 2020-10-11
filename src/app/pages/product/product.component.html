@@ -1,0 +1,14 @@
+<nb-card>
+    <nb-card-header> Products </nb-card-header>
+  
+    <nb-card-body>
+      <button nbButton status="primary" class="mb-3" [routerLink]="['/pages/product/add']" routerLinkActive="router-link-active" >Add</button>
+      <ng2-smart-table
+        *ngIf="source"
+        [settings]="settings"
+        [source]="source"
+        (deleteConfirm)="onDeleteConfirm($event)"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>

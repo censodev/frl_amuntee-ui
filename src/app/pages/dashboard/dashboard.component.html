@@ -1,5 +1,2 @@
-<div class="row">
-  <div class="col-xxl-12">
-    <ngx-revenue-company *ngIf="revenueCompanyData" #revenueChart [profitChartData]="revenueCompanyData"></ngx-revenue-company>
-  </div>
-</div>
+<ngx-statistic-filter [stores]="stores"></ngx-statistic-filter>
+<ngx-statistic-summary [chartData]="statistic.summary"></ngx-statistic-summary>

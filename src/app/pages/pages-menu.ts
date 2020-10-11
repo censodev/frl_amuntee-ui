@@ -7,51 +7,19 @@ export const MENU_ITEMS: NbMenuItem[] = [
     link: '/pages/dashboard',
     home: true,
   },
-  // {
-  //   title: 'IoT Dashboard',
-  //   icon: 'shopping-cart-outline',
-  //   link: '/pages/iot-dashboard',
-  // },
   {
     title: 'BUSINESS',
     group: true,
   },
   {
-    title: 'Revenue',
-    icon: 'trending-up-outline',
-    children: [
-      {
-        title: 'Statistic',
-        link: '/pages/revenue/statistic',
-      },
-      {
-        title: 'Orders',
-        link: '/pages/revenue/order',
-      },
-    ],
+    title: 'Stores',
+    icon: 'shopping-bag-outline',
+    link: '/pages/store',
   },
   {
-    title: 'Fees',
-    icon: 'trending-down-outline',
-    link: '/pages/fee',
-    children: [
-      {
-        title: 'Marketing',
-        link: '/pages/fee/marketing',
-      },
-      {
-        title: 'Base Cost',
-        link: '/pages/fee/base-cost',
-      },
-      {
-        title: 'PayGate Fee',
-        link: '/pages/fee/paygate',
-      },
-      {
-        title: 'Dispute',
-        link: '/pages/fee/dispute',
-      },
-    ],
+    title: 'Products',
+    icon: 'archive-outline',
+    link: '/pages/product',
   },
   {
     title: 'ACCOUNT',

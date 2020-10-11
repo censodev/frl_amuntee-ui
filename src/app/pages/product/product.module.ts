@@ -1,0 +1,27 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { ProductRoutingModule } from './product-routing.module';
+import { ProductComponent } from './product.component';
+import { FormsModule } from '@angular/forms';
+import { NbCardModule, NbIconModule, NbInputModule, NbButtonModule } from '@nebular/theme';
+import { ThemeModule } from 'app/@theme/theme.module';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ProductAddComponent } from './product-add/product-add.component';
+
+
+@NgModule({
+  declarations: [ProductComponent, ProductAddComponent],
+  imports: [
+    CommonModule,
+    ProductRoutingModule,
+    FormsModule,
+    Ng2SmartTableModule,
+    NbCardModule,
+    NbIconModule,
+    NbInputModule,
+    ThemeModule,
+    NbButtonModule,
+  ],
+})
+export class ProductModule { }

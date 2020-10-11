@@ -1,14 +1,27 @@
-import { DashboardComponent } from './dashboard.component';
+import { NgxEchartsModule } from 'ngx-echarts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RevenueModule } from '../revenue/revenue.module';
+
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+import { StatisticSummaryComponent } from './statistic-summary/statistic-summary.component';
+import { NbCardModule, NbDatepickerModule, NbInputModule, NbSelectModule, NbButtonModule } from '@nebular/theme';
+import { FormsModule } from '@angular/forms';
+import { StatisticFilterComponent } from './statistic-filter/statistic-filter.component';
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, StatisticSummaryComponent, StatisticFilterComponent],
   imports: [
     CommonModule,
-    RevenueModule,
+    DashboardRoutingModule,
+    FormsModule,
+    NgxEchartsModule,
+    NbDatepickerModule,
+    NbInputModule,
+    NbSelectModule,
+    NbCardModule,
+    NbButtonModule,
   ],
 })
 export class DashboardModule { }
