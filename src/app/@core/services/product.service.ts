@@ -26,7 +26,15 @@ export class ProductService {
     return this.http.get<Pageable<Product>>(`${BASE_URL}`, { params: params });
   }
 
+  findOne(id: number): Observable<Product> {
+    return this.http.get<Product>(`${BASE_URL}/${id}`);
+  }
+
   addProduct(product: Product): Observable<Product> {
     return this.http.post<Product>(`${BASE_URL}`, product);
+  }
+
+  updateProduct(product: Product): Observable<Product> {
+    return this.http.put<Product>(`${BASE_URL}/${product.id}`, product);
   }
 }

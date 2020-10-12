@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { ProductService } from './../../@core/services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -56,7 +57,8 @@ export class ProductComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.productService.listProducts().subscribe(res => {
@@ -64,11 +66,7 @@ export class ProductComponent implements OnInit {
     });
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+  onEdited(evt: any) {
+    this.router.navigate(['pages/product', evt.data.id]);
   }
 }

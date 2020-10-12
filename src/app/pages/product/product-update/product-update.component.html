@@ -1,0 +1,49 @@
+<nb-card>
+    <nb-card-header>
+        Update Product
+    </nb-card-header>
+    <nb-card-body>
+        <form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="row">
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Product Name</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.name" name="name" required #name="ngModel" placeholder="Product Name">
+                <p class="caption status-danger" *ngIf="name.touched && name.errors?.required">
+                    Product Name is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Product Code</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.code" name="code" required #code="ngModel" placeholder="Product Code">
+                <p class="caption status-danger" *ngIf="code.touched && code.errors?.required">
+                    Product Code is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Base Cost</label>
+                <input nbInput fullWidth type="number" step="0.01" [(ngModel)]="product.baseCost" name="baseCost" required #baseCost="ngModel" placeholder="Base Cost">
+                <p class="caption status-danger" *ngIf="baseCost.touched && baseCost.errors?.required">
+                    Base Cost is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Supplier Code</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.supplierCode" name="supplierCode" required #supplierCode="ngModel" placeholder="Supplier Code">
+                <p class="caption status-danger" *ngIf="supplierCode.touched && supplierCode.errors?.required">
+                    Supplier Code is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Shipping Time</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.shippingTime" name="shippingTime" #shippingTime="ngModel" placeholder="Shipping Time">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Processing Time</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.processingTime" name="processingTime" #processingTime="ngModel" placeholder="Processing Time">
+            </div>
+            <div class="col-md-12">
+                <button [disabled]="!formAdd.form.valid" nbButton status="success">Update</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>
+

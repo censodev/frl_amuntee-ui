@@ -8,10 +8,11 @@ import { NbCardModule, NbIconModule, NbInputModule, NbButtonModule } from '@nebu
 import { ThemeModule } from 'app/@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ProductAddComponent } from './product-add/product-add.component';
+import { ProductUpdateComponent } from './product-update/product-update.component';
 
 
 @NgModule({
-  declarations: [ProductComponent, ProductAddComponent],
+  declarations: [ProductComponent, ProductAddComponent, ProductUpdateComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
