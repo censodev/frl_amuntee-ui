@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
 
   statistic = {
     summary: undefined,
+    fee: undefined,
   };
 
   stores: Store[];
@@ -40,7 +41,26 @@ export class DashboardComponent implements OnInit {
         const fee = cur.marketingFee + cur.storeFee + cur.baseCostFee;
         const profit = revenue - fee;
         return {
-          data: [[...acc.data[0], revenue], [...acc.data[1], fee], [...acc.data[2], profit]],
+          data: [
+            [...acc.data[0], revenue],
+            [...acc.data[1], fee],
+            [...acc.data[2], profit],
+          ],
+          chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
+        };
+      }, {
+        chartLabel: [],
+        data: [[], [], []],
+      });
+    this.statistic.fee = data
+      .filter(stat => stat.year && stat.month)
+      .reduce((acc, cur: any) => {
+        return {
+          data: [
+            [...acc.data[0], cur.baseCostFee],
+            [...acc.data[1], cur.storeFee],
+            [...acc.data[2], cur.marketingFee],
+          ],
           chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
         };
       }, {

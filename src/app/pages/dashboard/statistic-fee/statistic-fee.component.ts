@@ -1,12 +1,13 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, Input, SimpleChanges } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-statistic-summary',
-  templateUrl: './statistic-summary.component.html',
-  styleUrls: ['./statistic-summary.component.scss'],
+  selector: 'ngx-statistic-fee',
+  templateUrl: './statistic-fee.component.html',
+  styleUrls: ['./statistic-fee.component.scss'],
 })
-export class StatisticSummaryComponent implements OnInit, OnChanges {
+export class StatisticFeeComponent implements OnInit, OnChanges {
+
   @Input()
   chartData: any;
 
@@ -86,7 +87,7 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
       ],
       series: [
         {
-          name: 'Revenue',
+          name: 'Base Cost Fee',
           type: 'bar',
           barGap: 0,
           barWidth: '20%',
@@ -104,7 +105,7 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
           data: this.chartData.data[0],
         },
         {
-          name: 'Fee',
+          name: 'Store Fee',
           type: 'bar',
           barWidth: '20%',
           itemStyle: {
@@ -121,7 +122,7 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
           data: this.chartData.data[1],
         },
         {
-          name: 'Profit',
+          name: 'Marketing Fee',
           type: 'bar',
           barWidth: '20%',
           itemStyle: {
@@ -140,4 +141,5 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
       ],
     };
   }
+
 }
