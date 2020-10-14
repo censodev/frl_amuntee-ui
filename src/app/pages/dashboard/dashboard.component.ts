@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   statistic = {
     summary: undefined,
     fee: undefined,
+    productType: undefined,
   };
 
   stores: Store[];
@@ -26,6 +27,8 @@ export class DashboardComponent implements OnInit {
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statistic(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticSummary(res));
+      this.statisticService.statisticForProductType(data.from, data.to, data.storeId)
+        .subscribe((res: any[]) => this.callbackStatisticProductType(res));
     });
   }
 
@@ -67,5 +70,23 @@ export class DashboardComponent implements OnInit {
         chartLabel: [],
         data: [[], [], []],
       });
+  }
+
+  callbackStatisticProductType(data: any[]) {
+    this.statistic.productType = data.reduce((acc, cur: any) => {
+      return {
+        legends: [...acc.legends, cur.title ? cur.title : 'Undefined'],
+        data: [
+          ...acc.data,
+          {
+            name: cur.title ? cur.title : 'Undefined',
+            value: cur.orderCount,
+          },
+        ],
+      };
+    }, {
+      legends: [],
+      data: [],
+    });
   }
 }

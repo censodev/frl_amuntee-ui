@@ -9,6 +9,7 @@ import { NbCardModule, NbDatepickerModule, NbInputModule, NbSelectModule, NbButt
 import { FormsModule } from '@angular/forms';
 import { StatisticFilterComponent } from './statistic-filter/statistic-filter.component';
 import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
+import { StatisticProductTypeComponent } from './statistic-product-type/statistic-product-type.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
     StatisticSummaryComponent,
     StatisticFilterComponent,
     StatisticFeeComponent,
+    StatisticProductTypeComponent,
   ],
   imports: [
     CommonModule,
