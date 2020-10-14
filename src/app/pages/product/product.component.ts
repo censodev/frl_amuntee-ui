@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ProductService } from './../../@core/services/product.service';
 import { Component, OnInit } from '@angular/core';
@@ -37,19 +38,23 @@ export class ProductComponent implements OnInit {
         type: 'number',
       },
       name: {
-        title: 'Product Name',
+        title: 'Name',
         type: 'string',
       },
       code: {
-        title: 'Product Code',
+        title: 'Code',
+        type: 'string',
+      },
+      type: {
+        title: 'Type',
         type: 'string',
       },
       baseCost: {
         title: 'Base Cost',
         type: 'string',
       },
-      supplierCode: {
-        title: 'Supplier Code',
+      supplier: {
+        title: 'Supplier',
         type: 'string',
       },
     },
@@ -62,7 +67,14 @@ export class ProductComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.listProducts().subscribe(res => {
-      this.source.load(res.content);
+      const data = res.content.map(i => {
+        return {
+          ...i,
+          type: i.type.name,
+          supplier: i.supplier.name,
+        };
+      });
+      this.source.load(data);
     });
   }
 

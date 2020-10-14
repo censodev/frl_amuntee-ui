@@ -25,12 +25,17 @@
                     Base Cost is required!
                 </p>
             </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label class="label" for="">Supplier Code</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="product.supplierCode" name="supplierCode" required #supplierCode="ngModel" placeholder="Supplier Code">
-                <p class="caption status-danger" *ngIf="supplierCode.touched && supplierCode.errors?.required">
-                    Supplier Code is required!
-                </p>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Type</label>
+                <nb-select *ngIf="product.type" [(selected)]="product.type.id" class="w-100">
+                    <nb-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</nb-option>
+                </nb-select>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Supplier</label>
+                <nb-select *ngIf="product.supplier" [(selected)]="product.supplier.id" class="w-100">
+                    <nb-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</nb-option>
+                </nb-select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
                 <label class="label" for="">Shipping Time</label>

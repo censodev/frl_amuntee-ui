@@ -1,10 +1,12 @@
+import { ProductType } from './product-type';
+import { Supplier } from './supplier';
 export class Product {
     id: number;
     code: string;
     name: string;
-    type: string;
     baseCost: number;
-    supplierCode: string;
+    type: ProductType;
+    supplier: Supplier;
     shippingTime?: any;
     processingTime?: any;
     createdAt?: any;
