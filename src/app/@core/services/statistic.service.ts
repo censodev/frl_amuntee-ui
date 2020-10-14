@@ -21,30 +21,34 @@ export class StatisticService {
   });
 
   statistic(from: Date, to: Date, storeId: number) {
-    const params = new HttpParams()
-      .set('from', from ? '' + from.getTime() : '')
-      .set('to', to ? '' + to.getTime() : '')
-      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '');
+    const params = this.getHttpParamsStatistic(from, to, storeId);
     return this.http.get(`${BASE_URL}`, { params: params });
   }
 
-  statisticForSeller() {
-    return this.http.get(`${BASE_URL}/seller`);
+  statisticForSeller(from: Date, to: Date, storeId: number) {
+    const params = this.getHttpParamsStatistic(from, to, storeId);
+    return this.http.get(`${BASE_URL}/seller`, { params: params });
   }
 
-  statisticForSupplier() {
-    return this.http.get(`${BASE_URL}/supplier`);
+  statisticForSupplier(from: Date, to: Date, storeId: number) {
+    const params = this.getHttpParamsStatistic(from, to, storeId);
+    return this.http.get(`${BASE_URL}/supplier`, { params: params });
   }
 
-  statisticForProductSku() {
-    return this.http.get(`${BASE_URL}/product-sku`);
+  statisticForProductType(from: Date, to: Date, storeId: number) {
+    const params = this.getHttpParamsStatistic(from, to, storeId);
+    return this.http.get(`${BASE_URL}/product-type`, { params: params });
   }
 
-  statisticForProductCode() {
-    return this.http.get(`${BASE_URL}/product-code`);
+  statisticForProductDesign(from: Date, to: Date, storeId: number) {
+    const params = this.getHttpParamsStatistic(from, to, storeId);
+    return this.http.get(`${BASE_URL}/product-design`, { params: params });
   }
 
-  statisticForProductDesign() {
-    return this.http.get(`${BASE_URL}/product-design`);
+  private getHttpParamsStatistic(from: Date, to: Date, storeId: number): HttpParams {
+    return new HttpParams()
+      .set('from', from ? '' + from.getTime() : '')
+      .set('to', to ? '' + to.getTime() : '')
+      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '');
   }
 }
