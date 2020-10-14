@@ -4,20 +4,26 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-md-4">
-                <label class="label">Date Range</label>
-                <input class="w-100" [(ngModel)]="dateRange" nbInput placeholder="Range Picker" [nbDatepicker]="rangepicker">
-                <nb-rangepicker #rangepicker></nb-rangepicker>
-            </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label class="label">Store</label>
                 <nb-select [(selected)]="storeSelectedId" class="w-100">
                     <nb-option selected [value]="0">All Stores</nb-option>
                     <nb-option *ngFor="let store of stores" [value]="store.id">{{ store.name }}</nb-option>
                 </nb-select>
             </div>
-            <div class="col-md-4 d-flex align-items-end">
-                <button nbButton status="success" (click)="onFiltered()">Filter</button>
+            <div class="col-md-3">
+                <label class="label">Filter Options</label>
+                <nb-select [(selected)]="filterOptionSelectedId" class="w-100">
+                    <nb-option *ngFor="let filterOption of filterOptions" [value]="filterOption.id">{{ filterOption.name }}</nb-option>
+                </nb-select>
+            </div>
+            <div class="col-md-3" *ngIf="filterOptionSelectedId === 5">
+                <label class="label">Custom Range</label>
+                <input class="w-100" [(ngModel)]="dateRange" nbInput placeholder="Range Picker" [nbDatepicker]="rangepicker">
+                <nb-rangepicker #rangepicker></nb-rangepicker>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+                <button nbButton status="success" (click)="onSubmitted()">Filter</button>
             </div>
         </div>
     </nb-card-body>

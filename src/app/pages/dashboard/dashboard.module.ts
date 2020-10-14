@@ -10,9 +10,13 @@ import { FormsModule } from '@angular/forms';
 import { StatisticFilterComponent } from './statistic-filter/statistic-filter.component';
 import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
 
-
 @NgModule({
-  declarations: [DashboardComponent, StatisticSummaryComponent, StatisticFilterComponent, StatisticFeeComponent],
+  declarations: [
+    DashboardComponent,
+    StatisticSummaryComponent,
+    StatisticFilterComponent,
+    StatisticFeeComponent,
+  ],
   imports: [
     CommonModule,
     DashboardRoutingModule,

@@ -1,3 +1,4 @@
+import { TimeService } from './time.service';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -10,12 +11,13 @@ const BASE_URL = `${environment.apiUrl}/statistic`;
 })
 export class StatisticService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private timeService: TimeService) { }
 
   onFiltered = new BehaviorSubject({
     storeId: 0,
-    from: new Date(1596243600000),
-    to: new Date(),
+    from: this.timeService.today().from,
+    to: this.timeService.today().to,
   });
 
   statistic(from: Date, to: Date, storeId: number) {

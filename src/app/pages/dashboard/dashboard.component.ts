@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit {
             [...acc.data[1], fee],
             [...acc.data[2], profit],
           ],
-          chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
+          chartLabel: [...acc.chartLabel, `${cur.month}/${cur.day}`],
         };
       }, {
         chartLabel: [],
@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
             [...acc.data[1], cur.storeFee],
             [...acc.data[2], cur.marketingFee],
           ],
-          chartLabel: [...acc.chartLabel, `${cur.year}/${cur.month}`],
+          chartLabel: [...acc.chartLabel, `${cur.month}/${cur.day}`],
         };
       }, {
         chartLabel: [],
