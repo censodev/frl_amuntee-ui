@@ -1,12 +1,13 @@
-import { Component, OnInit, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
+import { Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { NbThemeService } from '@nebular/theme';
 
 @Component({
-  selector: 'ngx-statistic-product-type',
-  templateUrl: './statistic-product-type.component.html',
-  styleUrls: ['./statistic-product-type.component.scss'],
+  selector: 'ngx-statistic-seller',
+  templateUrl: './statistic-seller.component.html',
+  styleUrls: ['./statistic-seller.component.scss'],
 })
-export class StatisticProductTypeComponent implements OnInit, OnChanges, OnDestroy {
+export class StatisticSellerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() chartData: any;
   options: any = {};
   themeSubscription: any;

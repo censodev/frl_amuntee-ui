@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { StatisticFilterComponent } from './statistic-filter/statistic-filter.component';
 import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
 import { StatisticProductTypeComponent } from './statistic-product-type/statistic-product-type.component';
+import { StatisticSellerComponent } from './statistic-seller/statistic-seller.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { StatisticProductTypeComponent } from './statistic-product-type/statisti
     StatisticFilterComponent,
     StatisticFeeComponent,
     StatisticProductTypeComponent,
+    StatisticSellerComponent,
   ],
   imports: [
     CommonModule,

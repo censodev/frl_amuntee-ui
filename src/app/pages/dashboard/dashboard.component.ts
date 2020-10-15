@@ -14,6 +14,7 @@ export class DashboardComponent implements OnInit {
     summary: undefined,
     fee: undefined,
     productType: undefined,
+    seller: undefined,
   };
 
   stores: Store[];
@@ -29,6 +30,8 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any[]) => this.callbackStatisticSummary(res));
       this.statisticService.statisticForProductType(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticProductType(res));
+      this.statisticService.statisticForSeller(data.from, data.to, data.storeId)
+        .subscribe((res: any[]) => this.callbackStatisticSeller(res));
     });
   }
 
@@ -80,6 +83,24 @@ export class DashboardComponent implements OnInit {
           ...acc.data,
           {
             name: cur.title ? cur.title : 'Undefined',
+            value: cur.orderCount,
+          },
+        ],
+      };
+    }, {
+      legends: [],
+      data: [],
+    });
+  }
+
+  callbackStatisticSeller(data: any[]) {
+    this.statistic.seller = data.reduce((acc, cur: any) => {
+      return {
+        legends: [...acc.legends, cur.name ? cur.name : 'Undefined'],
+        data: [
+          ...acc.data,
+          {
+            name: cur.name ? cur.name : 'Undefined',
             value: cur.orderCount,
           },
         ],
