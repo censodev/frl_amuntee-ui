@@ -7,8 +7,9 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./statistic-supplier.component.scss'],
 })
 export class StatisticSupplierComponent implements OnInit, OnChanges, OnDestroy {
-
   @Input() chartData: any;
+  @Input() totalBaseCost: number;
+
   options: any = {};
   themeSubscription: any;
 

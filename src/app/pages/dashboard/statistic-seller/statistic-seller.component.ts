@@ -9,6 +9,8 @@ import { NbThemeService } from '@nebular/theme';
 })
 export class StatisticSellerComponent implements OnInit, OnChanges, OnDestroy {
   @Input() chartData: any;
+  @Input() orderCount: number;
+
   options: any = {};
   themeSubscription: any;
 

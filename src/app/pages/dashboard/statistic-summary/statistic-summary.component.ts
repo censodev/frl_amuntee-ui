@@ -7,10 +7,11 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./statistic-summary.component.scss'],
 })
 export class StatisticSummaryComponent implements OnInit, OnChanges {
-  @Input()
-  chartData: any;
+  @Input() chartData: any;
+  @Input() totalSales: number;
 
   eTheme: any;
+  colors: any;
   options: any;
 
   constructor(private theme: NbThemeService) { }
@@ -24,6 +25,7 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
       this.theme.getJsTheme()
         .subscribe(config => {
           this.eTheme = config.variables.profit;
+          this.colors = config.variables;
           this.initChart();
         });
     }
@@ -94,10 +96,10 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.secondLineGradFrom,
+                color: this.colors.primaryLight,
               }, {
                 offset: 1,
-                color: this.eTheme.secondLineGradTo,
+                color: this.colors.primaryLight,
               }]),
             },
           },
@@ -111,10 +113,10 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.firstLineGradFrom,
+                color: this.colors.dangerLight,
               }, {
                 offset: 1,
-                color: this.eTheme.firstLineGradTo,
+                color: this.colors.dangerLight,
               }]),
             },
           },
@@ -128,10 +130,10 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.thirdLineGradFrom,
+                color: this.colors.successLight,
               }, {
                 offset: 1,
-                color: this.eTheme.thirdLineGradTo,
+                color: this.colors.successLight,
               }]),
             },
           },

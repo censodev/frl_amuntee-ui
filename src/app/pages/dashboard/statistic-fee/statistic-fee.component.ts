@@ -7,11 +7,10 @@ import { NbThemeService } from '@nebular/theme';
   styleUrls: ['./statistic-fee.component.scss'],
 })
 export class StatisticFeeComponent implements OnInit, OnChanges {
-
-  @Input()
-  chartData: any;
+  @Input() chartData: any;
 
   eTheme: any;
+  colors: any;
   options: any;
 
   constructor(private theme: NbThemeService) { }
@@ -25,6 +24,7 @@ export class StatisticFeeComponent implements OnInit, OnChanges {
       this.theme.getJsTheme()
         .subscribe(config => {
           this.eTheme = config.variables.profit;
+          this.colors = config.variables;
           this.initChart();
         });
     }
@@ -95,10 +95,10 @@ export class StatisticFeeComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.secondLineGradFrom,
+                color: this.colors.primaryLight,
               }, {
                 offset: 1,
-                color: this.eTheme.secondLineGradTo,
+                color: this.colors.primaryLight,
               }]),
             },
           },
@@ -112,10 +112,10 @@ export class StatisticFeeComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.firstLineGradFrom,
+                color: this.colors.warningLight,
               }, {
                 offset: 1,
-                color: this.eTheme.firstLineGradTo,
+                color: this.colors.warningLight,
               }]),
             },
           },
@@ -129,10 +129,10 @@ export class StatisticFeeComponent implements OnInit, OnChanges {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: this.eTheme.thirdLineGradFrom,
+                color: this.colors.dangerLight,
               }, {
                 offset: 1,
-                color: this.eTheme.thirdLineGradTo,
+                color: this.colors.dangerLight,
               }]),
             },
           },

@@ -1,6 +1,7 @@
 <nb-card>
-    <nb-card-header>
-        Seller Statistic
+    <nb-card-header class="d-flex">
+        <span>Orders by Seller - Total Orders: {{ orderCount }}</span>
+        <a class="ml-auto" [routerLink]="['/pages/report/seller']" routerLinkActive="router-link-active" >Details</a>
     </nb-card-header>
     <nb-card-body>
         <div echarts [options]="options" class="echart"></div>

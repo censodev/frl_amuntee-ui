@@ -37,12 +37,12 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSummary(data: any[]) {
-    this.statistic.summary = data
-      .filter(stat => stat.year && stat.month)
+    data = data.filter(stat => stat.year && stat.month);
+    const chartData = data
       .reduce((acc, cur: any) => {
         const revenue = cur.revenue;
         const fee = cur.marketingFee + cur.storeFee + cur.baseCostFee;
-        const profit = revenue - fee;
+        const profit = Math.round((revenue - fee) * 100) / 100.00;
         return {
           data: [
             [...acc.data[0], revenue],
@@ -55,8 +55,13 @@ export class DashboardComponent implements OnInit {
         chartLabel: [],
         data: [[], [], []],
       });
+
+    this.statistic.summary = {
+      chartData: chartData,
+      totalSales: Math.round(data.reduce((acc, cur: any) => acc + cur.revenue, 0) * 100) / 100.00,
+    };
+
     this.statistic.fee = data
-      .filter(stat => stat.year && stat.month)
       .reduce((acc, cur: any) => {
         return {
           data: [
@@ -91,7 +96,7 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSeller(data: any[]) {
-    this.statistic.seller = data.reduce((acc, cur: any) => {
+    const chartData = data.reduce((acc, cur: any) => {
       return {
         legends: [...acc.legends, cur.name ? cur.name : 'Undefined'],
         data: [
@@ -106,6 +111,12 @@ export class DashboardComponent implements OnInit {
       legends: [],
       data: [],
     });
+
+    this.statistic.seller = {
+      chartData: chartData,
+      orderCount: data.reduce((acc, cur: any) => acc + cur.orderCount, 0),
+    };
+
   }
 
   callbackStatisticProductDesign(data: any[]) {
@@ -113,8 +124,9 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSupplier(data: any[]) {
-    this.statistic.supplier = data
-      .filter(i => i.baseCost)
+    data = data.filter(i => i.baseCost);
+
+    const chartData = data
       .reduce((acc, cur: any) => {
         const curSplName = cur.supplierName ? cur.supplierName : 'Undefined';
         if (acc.legends.includes(curSplName)) {
@@ -146,5 +158,11 @@ export class DashboardComponent implements OnInit {
         legends: [],
         data: [],
       });
+
+    this.statistic.supplier = {
+      chartData: chartData,
+      totalBaseCost: data.reduce((acc, cur: any) => acc + cur.baseCost, 0),
+    };
+
   }
 }
