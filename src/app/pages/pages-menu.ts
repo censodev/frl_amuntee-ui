@@ -7,9 +7,27 @@ export const MENU_ITEMS: NbMenuItem[] = [
   },
   {
     title: 'Dashboard',
-    icon: 'home-outline',
+    icon: 'bar-chart-outline',
     link: '/pages/dashboard',
     home: true,
+  },
+  {
+    title: 'Reports',
+    icon: 'file-text-outline',
+    children: [
+      {
+        title: 'Total Sales',
+        link: '/pages/report/total-sales',
+      },
+      {
+        title: 'Order By Sellers',
+        link: '/pages/report/seller',
+      },
+      {
+        title: 'Supplier Base Cost',
+        link: '/pages/report/supplier',
+      },
+    ],
   },
   {
     title: 'CMS',
