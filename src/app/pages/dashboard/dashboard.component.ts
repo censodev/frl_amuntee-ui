@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit {
     productType: undefined,
     seller: undefined,
     productDesign: undefined,
+    supplier: undefined,
   };
 
   stores: Store[];
@@ -36,6 +37,8 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any[]) => this.callbackStatisticSeller(res));
       this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticProductDesign(res));
+      this.statisticService.statisticForSupplier(data.from, data.to, data.storeId)
+        .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
     });
   }
 
@@ -117,5 +120,40 @@ export class DashboardComponent implements OnInit {
 
   callbackStatisticProductDesign(data: any[]) {
     this.statistic.productDesign = data;
+  }
+
+  callbackStatisticSupplier(data: any[]) {
+    this.statistic.supplier = data.reduce((acc, cur: any) => {
+      const curSplName = cur.supplierName ? cur.supplierName : 'Undefined';
+      const curBaseCost = cur.baseCost ? +cur.baseCost : 0;
+      if (acc.legends.includes(curSplName)) {
+        const target = acc.data.find(i => i.name === curSplName);
+        const newAcc = acc.data.filter(i => i.name !== curSplName);
+
+        return {
+          legends: acc.legends,
+          data: [
+            ...newAcc,
+            {
+              name: curSplName,
+              value: curBaseCost + target.value,
+            },
+          ],
+        };
+      }
+      return {
+        legends: [...acc.legends, curSplName],
+        data: [
+          ...acc.data,
+          {
+            name: curSplName,
+            value: curBaseCost,
+          },
+        ],
+      };
+    }, {
+      legends: [],
+      data: [],
+    });
   }
 }

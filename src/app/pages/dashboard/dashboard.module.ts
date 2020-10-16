@@ -13,6 +13,7 @@ import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
 import { StatisticProductTypeComponent } from './statistic-product-type/statistic-product-type.component';
 import { StatisticSellerComponent } from './statistic-seller/statistic-seller.component';
 import { StatisticProductDesignComponent } from './statistic-product-design/statistic-product-design.component';
+import { StatisticSupplierComponent } from './statistic-supplier/statistic-supplier.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { StatisticProductDesignComponent } from './statistic-product-design/stat
     StatisticProductTypeComponent,
     StatisticSellerComponent,
     StatisticProductDesignComponent,
+    StatisticSupplierComponent,
   ],
   imports: [
     CommonModule,
