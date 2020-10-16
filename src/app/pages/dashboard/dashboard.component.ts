@@ -1,3 +1,4 @@
+import { LocalDataSource } from 'ng2-smart-table';
 import { Store } from './../../@core/models/business/store';
 import { StoreService } from './../../@core/services/store.service';
 import { StatisticService } from './../../@core/services/statistic.service';
@@ -15,6 +16,7 @@ export class DashboardComponent implements OnInit {
     fee: undefined,
     productType: undefined,
     seller: undefined,
+    productDesign: undefined,
   };
 
   stores: Store[];
@@ -32,6 +34,8 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any[]) => this.callbackStatisticProductType(res));
       this.statisticService.statisticForSeller(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticSeller(res));
+      this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId)
+        .subscribe((res: any[]) => this.callbackStatisticProductDesign(res));
     });
   }
 
@@ -109,5 +113,9 @@ export class DashboardComponent implements OnInit {
       legends: [],
       data: [],
     });
+  }
+
+  callbackStatisticProductDesign(data: any[]) {
+    this.statistic.productDesign = data;
   }
 }

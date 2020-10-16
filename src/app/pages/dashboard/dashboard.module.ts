@@ -1,3 +1,4 @@
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -11,6 +12,7 @@ import { StatisticFilterComponent } from './statistic-filter/statistic-filter.co
 import { StatisticFeeComponent } from './statistic-fee/statistic-fee.component';
 import { StatisticProductTypeComponent } from './statistic-product-type/statistic-product-type.component';
 import { StatisticSellerComponent } from './statistic-seller/statistic-seller.component';
+import { StatisticProductDesignComponent } from './statistic-product-design/statistic-product-design.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +22,7 @@ import { StatisticSellerComponent } from './statistic-seller/statistic-seller.co
     StatisticFeeComponent,
     StatisticProductTypeComponent,
     StatisticSellerComponent,
+    StatisticProductDesignComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +34,7 @@ import { StatisticSellerComponent } from './statistic-seller/statistic-seller.co
     NbSelectModule,
     NbCardModule,
     NbButtonModule,
+    Ng2SmartTableModule,
   ],
 })
 export class DashboardModule { }
