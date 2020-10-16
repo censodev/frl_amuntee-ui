@@ -1,3 +1,5 @@
+import { ReportSupplierComponent } from './report-supplier/report-supplier.component';
+import { ReportSellerComponent } from './report-seller/report-seller.component';
 import { ReportTotalSalesComponent } from './report-total-sales/report-total-sales.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -9,11 +11,11 @@ const routes: Routes = [
   },
   {
     path: 'seller',
-    component: ReportTotalSalesComponent,
+    component: ReportSellerComponent,
   },
   {
     path: 'supplier',
-    component: ReportTotalSalesComponent,
+    component: ReportSupplierComponent,
   },
 ];
 
