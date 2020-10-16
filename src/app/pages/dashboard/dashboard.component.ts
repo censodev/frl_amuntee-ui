@@ -123,37 +123,38 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSupplier(data: any[]) {
-    this.statistic.supplier = data.reduce((acc, cur: any) => {
-      const curSplName = cur.supplierName ? cur.supplierName : 'Undefined';
-      const curBaseCost = cur.baseCost ? +cur.baseCost : 0;
-      if (acc.legends.includes(curSplName)) {
-        const target = acc.data.find(i => i.name === curSplName);
-        const newAcc = acc.data.filter(i => i.name !== curSplName);
+    this.statistic.supplier = data
+      .filter(i => i.baseCost)
+      .reduce((acc, cur: any) => {
+        const curSplName = cur.supplierName ? cur.supplierName : 'Undefined';
+        if (acc.legends.includes(curSplName)) {
+          const target = acc.data.find(i => i.name === curSplName);
+          const newAcc = acc.data.filter(i => i.name !== curSplName);
 
+          return {
+            legends: acc.legends,
+            data: [
+              ...newAcc,
+              {
+                name: curSplName,
+                value: +cur.baseCost + target.value,
+              },
+            ],
+          };
+        }
         return {
-          legends: acc.legends,
+          legends: [...acc.legends, curSplName],
           data: [
-            ...newAcc,
+            ...acc.data,
             {
               name: curSplName,
-              value: curBaseCost + target.value,
+              value: +cur.baseCost,
             },
           ],
         };
-      }
-      return {
-        legends: [...acc.legends, curSplName],
-        data: [
-          ...acc.data,
-          {
-            name: curSplName,
-            value: curBaseCost,
-          },
-        ],
-      };
-    }, {
-      legends: [],
-      data: [],
-    });
+      }, {
+        legends: [],
+        data: [],
+      });
   }
 }
