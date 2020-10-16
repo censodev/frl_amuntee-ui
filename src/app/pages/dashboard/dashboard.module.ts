@@ -38,5 +38,6 @@ import { StatisticSupplierComponent } from './statistic-supplier/statistic-suppl
     NbButtonModule,
     Ng2SmartTableModule,
   ],
+  exports: [StatisticFilterComponent],
 })
 export class DashboardModule { }

@@ -2,6 +2,7 @@ import { TimeService } from './../../../@core/services/time.service';
 import { StatisticService } from './../../../@core/services/statistic.service';
 import { Store } from './../../../@core/models/business/store';
 import { Component, Input, OnInit } from '@angular/core';
+import { StoreService } from 'app/@core/services/store.service';
 
 @Component({
   selector: 'ngx-statistic-filter',
@@ -9,11 +10,9 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./statistic-filter.component.scss'],
 })
 export class StatisticFilterComponent implements OnInit {
-  @Input() stores: Store[];
-
+  stores: Store[];
   dateRange: any;
   storeSelectedId = 0;
-
   filterOptionSelectedId = 1;
   filterOptions = [
     { id: 1, name: 'Today' },
@@ -24,9 +23,12 @@ export class StatisticFilterComponent implements OnInit {
   ];
 
   constructor(private statisticService: StatisticService,
-              private timeService: TimeService) { }
+              private timeService: TimeService,
+              private storeService: StoreService) { }
 
   ngOnInit(): void {
+    this.storeService.listStores()
+      .subscribe(res => this.stores = res.content);
     this.statisticService.onFiltered.subscribe(data => {
       this.storeSelectedId = data.storeId ? data.storeId : 0;
       this.dateRange = {

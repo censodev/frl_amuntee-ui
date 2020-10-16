@@ -10,7 +10,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-
   statistic = {
     summary: undefined,
     fee: undefined,
@@ -20,14 +19,9 @@ export class DashboardComponent implements OnInit {
     supplier: undefined,
   };
 
-  stores: Store[];
-
-  constructor(private statisticService: StatisticService,
-              private storeService: StoreService) { }
+  constructor(private statisticService: StatisticService) { }
 
   ngOnInit(): void {
-    this.storeService.listStores()
-      .subscribe(res => this.callbackStoreList(res.content));
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statistic(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticSummary(res));
@@ -40,10 +34,6 @@ export class DashboardComponent implements OnInit {
       this.statisticService.statisticForSupplier(data.from, data.to, data.storeId)
         .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
     });
-  }
-
-  callbackStoreList(data) {
-    this.stores = data;
   }
 
   callbackStatisticSummary(data: any[]) {
