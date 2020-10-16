@@ -51,7 +51,7 @@ export class StatisticProductDesignComponent implements OnInit, OnChanges {
     if (changes.data.currentValue) {
       this.source.load(this.data.map((cur, i) => {
         return {
-          nbr: i,
+          nbr: i + 1,
           productName: cur.productName ? cur.productName : 'Undefined',
           sku: cur.sku ? cur.sku : 'Undefined',
           sellerName: cur.sellerName ? cur.sellerName : 'Undefined',
