@@ -1,15 +1,14 @@
-import { map } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { ProductService } from './../../@core/services/product.service';
-import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { UserService } from 'app/@core/services/user.service';
 
 @Component({
-  selector: 'ngx-product',
-  templateUrl: './product.component.html',
-  styleUrls: ['./product.component.scss'],
+  selector: 'ngx-user',
+  templateUrl: './user.component.html',
+  styleUrls: ['./user.component.scss'],
 })
-export class ProductComponent implements OnInit {
+export class UserComponent implements OnInit {
   settings = {
     mode: 'external',
     // hideSubHeader: true,
@@ -36,48 +35,46 @@ export class ProductComponent implements OnInit {
         title: 'Code',
         type: 'string',
       },
-      name: {
+      fullname: {
         title: 'Name',
         type: 'string',
       },
-      type: {
-        title: 'Type',
+      email: {
+        title: 'Email',
         type: 'string',
       },
-      baseCost: {
-        title: 'Base Cost',
+      phone: {
+        title: 'Phone',
         type: 'string',
       },
-      supplier: {
-        title: 'Supplier',
+      role: {
+        title: 'Role',
         type: 'string',
       },
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  source = new LocalDataSource();
 
-  constructor(private productService: ProductService,
-              private router: Router) { }
+  constructor(private router: Router,
+              private userService: UserService) { }
 
   ngOnInit(): void {
-    this.productService.listProducts().subscribe(res => {
-      const data = res.content.map(i => {
+    this.userService.list()
+      .subscribe(res => this.source.load(res.content.map(i => {
         return {
           ...i,
-          type: i.type.name,
-          supplier: i.supplier.name,
+          role: i.roleId === 1 ? 'ADMIN' : 'SELLER',
         };
-      });
-      this.source.load(data);
-    });
+      })));
   }
 
   onEdited(evt: any) {
-    this.router.navigate(['pages/product', evt.data.id]);
+    this.router.navigate(['pages/user', evt.data.id]);
   }
 
   onAdded() {
-    this.router.navigate(['pages/product/add']);
+    this.router.navigate(['pages/user/add']);
   }
+
 }

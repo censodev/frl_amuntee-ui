@@ -37,6 +37,8 @@ export class ProductAddComponent implements OnInit {
         this.toastrService.show('New product has been added successfully.', 'Successful !', { status: 'success' });
       },
       err => {
+        // tslint:disable-next-line: no-console
+        console.log(err);
         this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
       });
   }

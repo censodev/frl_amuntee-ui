@@ -1,0 +1,126 @@
+<form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="row">
+    <nb-card class="col-md-12">
+        <nb-card-header>
+            Update User
+        </nb-card-header>
+        <nb-card-body class="row">
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Full Name</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="user.fullname" name="fullname" required #fullname="ngModel" placeholder="Full Name">
+                <p class="caption status-danger" *ngIf="fullname.touched && fullname.errors?.required">
+                    Full Name is required!
+                </p>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Seller Code</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="user.code" name="code" required #code="ngModel" placeholder="Seller Code">
+                <p class="caption status-danger" *ngIf="code.touched && code.errors?.required">
+                    Code name is required!
+                </p>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Role</label>
+                <nb-select [(selected)]="user.roleId" class="w-100">
+                    <nb-option *ngFor="let role of roles" [value]="role.id">{{ role.name }}</nb-option>
+                </nb-select>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Email</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="user.email" name="email" #email="ngModel" placeholder="Email">
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Phone Number</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="user.phone" name="phone" #phone="ngModel" placeholder="Phone Number">
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card class="col-md-12">
+        <nb-card-header>
+            Profit Rate
+        </nb-card-header>
+        <nb-card-body class="row">
+            <div class="form-group col-md-2">
+                <label class="label" for="">$0-$650</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.profit1" name="profit1" #profit1="ngModel" placeholder="0.25 (25%)">
+                <p class="caption status-danger" *ngIf="profit1.touched && profit1.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$650–$2499</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.profit2" name="profit2" #profit2="ngModel" placeholder="0.35 (35%)">
+                <p class="caption status-danger" *ngIf="profit2.touched && profit2.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$2500-$4999</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.profit3" name="profit3" #profit3="ngModel" placeholder="0.45 (45%)">
+                <p class="caption status-danger" *ngIf="profit3.touched && profit3.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$5000-$9999</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.profit4" name="profit4" #profit4="ngModel" placeholder="0.5 (50%)">
+                <p class="caption status-danger" *ngIf="profit4.touched && profit4.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$10.000+</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.profit5" name="profit5" #profit5="ngModel" placeholder="0.5 (50%)">
+                <p class="caption status-danger" *ngIf="profit5.touched && profit5.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card class="col-md-12">
+        <nb-card-header>
+            Bonus per Order
+        </nb-card-header>
+        <nb-card-body class="row">
+            <div class="form-group col-md-2">
+                <label class="label" for="">$0-$400</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.bonus1" name="bonus1" #bonus1="ngModel" placeholder="0.3 ($)">
+                <p class="caption status-danger" *ngIf="bonus1.touched && bonus1.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$400–$999</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.bonus2" name="bonus2" #bonus2="ngModel" placeholder="0.5 ($)">
+                <p class="caption status-danger" *ngIf="bonus2.touched && bonus2.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$1000-$2999</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.bonus3" name="bonus3" #bonus3="ngModel" placeholder="0.7 ($)">
+                <p class="caption status-danger" *ngIf="bonus3.touched && bonus3.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$3000-$4999</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.bonus4" name="bonus4" #bonus4="ngModel" placeholder="1 ($)">
+                <p class="caption status-danger" *ngIf="bonus4.touched && bonus4.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+            <div class="form-group col-md-2">
+                <label class="label" for="">$5000+</label>
+                <input nbInput fullWidth type="number" step="0.01" min="0" required [(ngModel)]="user.bonus5" name="bonus5" #bonus5="ngModel" placeholder="1 ($)">
+                <p class="caption status-danger" *ngIf="bonus5.touched && bonus5.errors?.required">
+                    This field is required!
+                </p>
+            </div>
+        </nb-card-body>
+    </nb-card>
+    <nb-card class="w-100">
+        <nb-card-body class="text-center">
+            <button [disabled]="!formAdd.form.valid" nbButton status="success">Submit</button>
+        </nb-card-body>
+    </nb-card>
+</form>

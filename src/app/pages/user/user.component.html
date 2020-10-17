@@ -1,0 +1,15 @@
+<nb-card>
+    <nb-card-header>Users</nb-card-header>
+  
+    <nb-card-body>
+      <ng2-smart-table
+        *ngIf="source"
+        [settings]="settings"
+        [source]="source"
+        (edit)="onEdited($event)"
+        (create)="onAdded()"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+  </nb-card>
+  
