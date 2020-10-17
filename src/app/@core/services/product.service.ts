@@ -50,4 +50,12 @@ export class ProductService {
       .set('order', order);
     return this.http.get<Pageable<ProductType>>(`${BASE_URL}/type`, { params: params });
   }
+
+  updateType(type: ProductType): Observable<ProductType> {
+    return this.http.put<ProductType>(`${BASE_URL}/type/${type.id}`, type);
+  }
+
+  addType(type: ProductType): Observable<ProductType> {
+    return this.http.post<ProductType>(`${BASE_URL}/type`, type);
+  }
 }

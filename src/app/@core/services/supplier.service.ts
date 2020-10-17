@@ -25,4 +25,12 @@ export class SupplierService {
       .set('order', order);
     return this.http.get<Pageable<Supplier>>(`${BASE_URL}`, { params: params });
   }
+
+  add(spl: Supplier): Observable<Supplier> {
+    return this.http.post<Supplier>(`${BASE_URL}`, spl);
+  }
+
+  update(spl: Supplier): Observable<Supplier> {
+    return this.http.put<Supplier>(`${BASE_URL}/${spl.id}`, spl);
+  }
 }

@@ -9,10 +9,11 @@ import { ThemeModule } from 'app/@theme/theme.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
+import { ProductTypeComponent } from './product-type/product-type.component';
 
 
 @NgModule({
-  declarations: [ProductComponent, ProductAddComponent, ProductUpdateComponent],
+  declarations: [ProductComponent, ProductAddComponent, ProductUpdateComponent, ProductTypeComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,

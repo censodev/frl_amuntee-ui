@@ -10,12 +10,11 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./product.component.scss'],
 })
 export class ProductComponent implements OnInit {
-
   settings = {
     mode: 'external',
-    hideSubHeader: true,
+    // hideSubHeader: true,
     actions: {
-      add: false,
+      // add: false,
       delete: false,
     },
     add: {
@@ -80,5 +79,9 @@ export class ProductComponent implements OnInit {
 
   onEdited(evt: any) {
     this.router.navigate(['pages/product', evt.data.id]);
+  }
+
+  onAdded() {
+    this.router.navigate(['pages/product/add']);
   }
 }

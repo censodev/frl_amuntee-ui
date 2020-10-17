@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { StoreService } from './../../@core/services/store.service';
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -11,9 +12,9 @@ export class StoreComponent implements OnInit {
 
   settings = {
     mode: 'external',
-    hideSubHeader: true,
+    // hideSubHeader: true,
     actions: {
-      add: false,
+      // add: false,
       delete: false,
     },
     add: {
@@ -56,7 +57,8 @@ export class StoreComponent implements OnInit {
 
   source: LocalDataSource = new LocalDataSource();
 
-  constructor(private storeService: StoreService) { }
+  constructor(private storeService: StoreService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.storeService.listStores().subscribe(stores => {
@@ -64,12 +66,7 @@ export class StoreComponent implements OnInit {
     });
   }
 
-  onDeleteConfirm(event): void {
-    if (window.confirm('Are you sure you want to delete?')) {
-      event.confirm.resolve();
-    } else {
-      event.confirm.reject();
-    }
+  onAdded() {
+    this.router.navigate(['/pages/store/add']);
   }
-
 }
