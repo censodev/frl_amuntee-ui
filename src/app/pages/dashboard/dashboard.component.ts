@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
     const chartData = data
       .reduce((acc, cur: any) => {
         const revenue = cur.revenue;
-        const fee = cur.marketingFee + cur.storeFee + cur.baseCostFee;
+        const fee =  Math.round((cur.marketingFee + cur.storeFee + cur.baseCostFee) * 100) / 100.00;
         const profit = Math.round((revenue - fee) * 100) / 100.00;
         return {
           data: [

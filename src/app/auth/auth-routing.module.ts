@@ -1,3 +1,5 @@
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { RequestPasswordComponent } from './request-password/request-password.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NbAuthComponent, NbRequestPasswordComponent } from '@nebular/auth';
@@ -23,12 +25,12 @@ const routes: Routes = [
       // },
       {
         path: 'request-password',
-        component: NbRequestPasswordComponent,
+        component: RequestPasswordComponent,
       },
-      // {
-      //   path: 'reset-password',
-      //   component: NbResetPasswordComponent,
-      // },
+      {
+        path: 'reset-password',
+        component: ResetPasswordComponent,
+      },
     ],
   },
 ];

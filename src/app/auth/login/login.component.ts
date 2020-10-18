@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    // tslint:disable-next-line: no-console
-    console.log(this.user);
     this.authService.login(this.user.email, this.user.password)
       .subscribe(
         res => {

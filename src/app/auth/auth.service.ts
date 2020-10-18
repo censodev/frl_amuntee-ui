@@ -1,5 +1,5 @@
 import { environment } from 'environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
@@ -52,5 +52,22 @@ export class AuthService {
 
   getCode(): string {
     return this.cookieService.get('code');
+  }
+
+  requestPassword(email: string): Observable<any> {
+    const params = new HttpParams()
+      .set('email', email);
+    return this.http
+      .post<any>(`${environment.apiUrl}/auth/request-password`, {}, { params: params });
+  }
+
+  resetPassword(code: string, password: string, confirmPassword, resetCode: string): Observable<any> {
+    const body = {
+      code: code,
+      password: password,
+      confirmPassword: confirmPassword,
+      resetCode: resetCode,
+    };
+    return this.http.post<any>(`${environment.apiUrl}/auth/reset-password`, body);
   }
 }
