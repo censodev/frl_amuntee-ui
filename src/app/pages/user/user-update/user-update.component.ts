@@ -27,9 +27,6 @@ export class UserUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.user.username = this.user.code;
-    this.user.password = this.user.code;
-
     this.userService.update(this.user).subscribe(
       res => {
         this.toastrService.show('This user has been updated successfully.', 'Successful !', { status: 'success' });
