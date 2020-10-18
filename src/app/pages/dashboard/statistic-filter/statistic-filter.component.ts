@@ -12,17 +12,8 @@ import { StoreService } from 'app/@core/services/store.service';
 export class StatisticFilterComponent implements OnInit {
   stores: Store[];
   dateRange: any;
-  storeSelectedId = 0;
-  filterOptionSelectedId = 1;
-  filterOptions = [
-    { id: 1, name: 'Today' },
-    { id: 2, name: 'Yesterday' },
-    { id: 3, name: 'This Week' },
-    { id: 4, name: 'This Month' },
-    { id: 5, name: 'Custom' },
-  ];
 
-  constructor(private statisticService: StatisticService,
+  constructor(public statisticService: StatisticService,
               private timeService: TimeService,
               private storeService: StoreService) { }
 
@@ -30,7 +21,7 @@ export class StatisticFilterComponent implements OnInit {
     this.storeService.listStores()
       .subscribe(res => this.stores = res.content);
     this.statisticService.onFiltered.subscribe(data => {
-      this.storeSelectedId = data.storeId ? data.storeId : 0;
+      this.statisticService.storeSelectedId = data.storeId ? data.storeId : 0;
       this.dateRange = {
         start: data.from,
         end: data.to,
@@ -40,12 +31,12 @@ export class StatisticFilterComponent implements OnInit {
 
   onSubmitted() {
     const data = {
-      storeId: this.storeSelectedId,
+      storeId: this.statisticService.storeSelectedId,
       from: this.dateRange?.start,
       to: this.dateRange?.end,
     };
 
-    switch (this.filterOptionSelectedId) {
+    switch (this.statisticService.filterOptionSelectedId) {
       case 1:
         const today = this.timeService.today();
         data.from = today.from;

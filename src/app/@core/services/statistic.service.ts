@@ -20,6 +20,17 @@ export class StatisticService {
     to: this.timeService.today().to,
   });
 
+  // FILTER
+  storeSelectedId = 0;
+  filterOptionSelectedId = 1;
+  filterOptions = [
+    { id: 1, name: 'Today' },
+    { id: 2, name: 'Yesterday' },
+    { id: 3, name: 'This Week' },
+    { id: 4, name: 'This Month' },
+    { id: 5, name: 'Custom' },
+  ];
+
   statistic(from: Date, to: Date, storeId: number, sellerCode: string) {
     const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}`, { params: params });
