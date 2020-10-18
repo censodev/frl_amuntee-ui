@@ -1,3 +1,4 @@
+import { AuthService } from './../../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from 'app/@core/services/statistic.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -64,11 +65,13 @@ export class ReportSellerComponent implements OnInit {
       },
     },
   };
-  constructor(private statisticService: StatisticService) { }
+  constructor(private statisticService: StatisticService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
-      this.statisticService.statisticForSeller(data.from, data.to, data.storeId)
+      this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
           this.source.load(res);
         });

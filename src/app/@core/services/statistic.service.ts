@@ -20,35 +20,36 @@ export class StatisticService {
     to: this.timeService.today().to,
   });
 
-  statistic(from: Date, to: Date, storeId: number) {
-    const params = this.getHttpParamsStatistic(from, to, storeId);
+  statistic(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}`, { params: params });
   }
 
-  statisticForSeller(from: Date, to: Date, storeId: number) {
-    const params = this.getHttpParamsStatistic(from, to, storeId);
+  statisticForSeller(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}/seller`, { params: params });
   }
 
-  statisticForSupplier(from: Date, to: Date, storeId: number) {
-    const params = this.getHttpParamsStatistic(from, to, storeId);
+  statisticForSupplier(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}/supplier`, { params: params });
   }
 
-  statisticForProductType(from: Date, to: Date, storeId: number) {
-    const params = this.getHttpParamsStatistic(from, to, storeId);
+  statisticForProductType(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}/product-type`, { params: params });
   }
 
-  statisticForProductDesign(from: Date, to: Date, storeId: number) {
-    const params = this.getHttpParamsStatistic(from, to, storeId);
+  statisticForProductDesign(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}/product-design`, { params: params });
   }
 
-  private getHttpParamsStatistic(from: Date, to: Date, storeId: number): HttpParams {
+  private getHttpParamsStatistic(from: Date, to: Date, storeId: number, sellerCode: string): HttpParams {
     return new HttpParams()
       .set('from', from ? '' + from.getTime() : '')
       .set('to', to ? '' + to.getTime() : '')
-      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '');
+      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '')
+      .set('sellerCode', sellerCode && sellerCode !== '' ? sellerCode : '');
   }
 }

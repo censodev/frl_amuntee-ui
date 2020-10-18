@@ -1,6 +1,7 @@
 import { LocalDataSource } from 'ng2-smart-table';
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from 'app/@core/services/statistic.service';
+import { AuthService } from 'app/auth/auth.service';
 
 @Component({
   selector: 'ngx-report-total-sales',
@@ -45,11 +46,13 @@ export class ReportTotalSalesComponent implements OnInit {
     },
   };
 
-  constructor(private statisticService: StatisticService) { }
+  constructor(private statisticService: StatisticService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
-      this.statisticService.statistic(data.from, data.to, data.storeId)
+      this.statisticService.statistic(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
           this.source.load(res.map((cur, i) => {
             return {

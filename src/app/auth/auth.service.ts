@@ -70,4 +70,8 @@ export class AuthService {
     };
     return this.http.post<any>(`${environment.apiUrl}/auth/reset-password`, body);
   }
+
+  isAdmin() {
+    return this.getRole() === 'ROLE_ADMIN';
+  }
 }

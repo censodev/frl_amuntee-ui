@@ -16,7 +16,7 @@ export class PagesComponent {
   menu: NbMenuItem[];
 
   constructor(private authService: AuthService) {
-    const isAdmin = this.authService.getRole() === 'ROLE_ADMIN';
+    const isAdmin = this.authService.isAdmin();
     this.menu = [
       {
         title: 'BUSINESS',
@@ -35,7 +35,6 @@ export class PagesComponent {
           {
             title: 'Total Sales',
             link: '/pages/report/total-sales',
-            hidden: !isAdmin,
           },
           {
             title: 'Order By Sellers',
@@ -44,23 +43,25 @@ export class PagesComponent {
           {
             title: 'Supplier Base Cost',
             link: '/pages/report/supplier',
-            hidden: !isAdmin,
           },
         ],
       },
       {
         title: 'CMS',
         group: true,
+        hidden: !isAdmin,
       },
       {
         title: 'Stores',
         icon: 'shopping-bag-outline',
         link: '/pages/store',
+        hidden: !isAdmin,
       },
       {
         title: 'Suppliers',
         icon: 'home-outline',
         link: '/pages/supplier',
+        hidden: !isAdmin,
       },
       {
         title: 'Products',
@@ -75,10 +76,12 @@ export class PagesComponent {
             link: '/pages/product/type',
           },
         ],
+        hidden: !isAdmin,
       },
       {
         title: 'ACCOUNT',
         group: true,
+        hidden: !isAdmin,
       },
       {
         title: 'Users',

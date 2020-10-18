@@ -1,3 +1,4 @@
+import { AuthService } from './../../auth/auth.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Store } from './../../@core/models/business/store';
 import { StoreService } from './../../@core/services/store.service';
@@ -19,19 +20,21 @@ export class DashboardComponent implements OnInit {
     supplier: undefined,
   };
 
-  constructor(private statisticService: StatisticService) { }
+  constructor(private statisticService: StatisticService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
-      this.statisticService.statistic(data.from, data.to, data.storeId)
+      this.statisticService.statistic(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticSummary(res));
-      this.statisticService.statisticForProductType(data.from, data.to, data.storeId)
+      this.statisticService.statisticForProductType(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductType(res));
-      this.statisticService.statisticForSeller(data.from, data.to, data.storeId)
+      this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticSeller(res));
-      this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId)
+      this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductDesign(res));
-      this.statisticService.statisticForSupplier(data.from, data.to, data.storeId)
+      this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
     });
   }

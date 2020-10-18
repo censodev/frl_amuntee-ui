@@ -1,4 +1,3 @@
-import { Router } from '@angular/router';
 import { AuthService } from './../../../auth/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
@@ -8,6 +7,7 @@ import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
 import { RippleService } from '../../../@core/utils/ripple.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'ngx-header',
@@ -104,7 +104,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
 
     this.menuService.onItemClick().subscribe(item => {
-      switch (item.item.data.id) {
+      switch (item.item?.data?.id) {
         case 'logout':
           this.authService.logout().subscribe(res => {
             this.router.navigate(['/auth/login']);
