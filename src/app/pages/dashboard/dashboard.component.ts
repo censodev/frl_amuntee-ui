@@ -81,39 +81,42 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticProductType(data: any[]) {
-    this.statistic.productType = data.reduce((acc, cur: any) => {
-      return {
-        legends: [...acc.legends, cur.title ? cur.title : 'Undefined'],
-        data: [
-          ...acc.data,
-          {
-            name: cur.title ? cur.title : 'Undefined',
-            value: cur.orderCount,
-          },
-        ],
-      };
-    }, {
-      legends: [],
-      data: [],
-    });
+    this.statistic.productType = data
+      .reduce((acc, cur: any) => {
+        return {
+          legends: [...acc.legends, cur.productCode],
+          data: [
+            ...acc.data,
+            {
+              name: cur.productCode,
+              value: cur.orderCount,
+            },
+          ],
+        };
+      }, {
+        legends: [],
+        data: [],
+      });
   }
 
   callbackStatisticSeller(data: any[]) {
-    const chartData = data.reduce((acc, cur: any) => {
-      return {
-        legends: [...acc.legends, cur.name ? cur.name : 'Undefined'],
-        data: [
-          ...acc.data,
-          {
-            name: cur.name ? cur.name : 'Undefined',
-            value: cur.orderCount,
-          },
-        ],
-      };
-    }, {
-      legends: [],
-      data: [],
-    });
+    const chartData = data
+      .filter(i => i.name)
+      .reduce((acc, cur: any) => {
+        return {
+          legends: [...acc.legends, cur.name],
+          data: [
+            ...acc.data,
+            {
+              name: cur.name,
+              value: cur.orderCount,
+            },
+          ],
+        };
+      }, {
+        legends: [],
+        data: [],
+      });
 
     this.statistic.seller = {
       chartData: chartData,
