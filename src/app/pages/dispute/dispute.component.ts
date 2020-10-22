@@ -2,6 +2,7 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { DisputeService } from './../../@core/services/dispute.service';
 import { Component, OnInit } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
+import { time } from 'console';
 
 @Component({
   selector: 'ngx-dispute',
@@ -79,7 +80,12 @@ export class DisputeComponent implements OnInit {
   ngOnInit(): void {
     this.disputeService.list().subscribe(data => {
       this.rawSrc = data.content;
-      this.source.load(data.content);
+      this.source.load(data.content.map(i => {
+        return {
+          ...i,
+          time: `${i.time[0]}/${i.time[1]}/${i.time[2]}`,
+        };
+      }));
     });
   }
 
@@ -91,7 +97,9 @@ export class DisputeComponent implements OnInit {
       res => {
         this.toastrService.show('Import successfully.', 'Successful !', { status: 'success' });
         this.source.load([
-          ...res,
+          ...res.map(i => {
+            return { ...i, time: `${i.time[0]}/${i.time[1]}/${i.time[2]}` };
+          }),
           ...this.rawSrc,
         ]);
       },
