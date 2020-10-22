@@ -9,6 +9,7 @@ import { NbToastrService } from '@nebular/theme';
   styleUrls: ['./dispute.component.scss'],
 })
 export class DisputeComponent implements OnInit {
+  rawSrc: any[];
   source = new LocalDataSource();
   settings = {
     // mode: 'external',
@@ -77,6 +78,7 @@ export class DisputeComponent implements OnInit {
 
   ngOnInit(): void {
     this.disputeService.list().subscribe(data => {
+      this.rawSrc = data.content;
       this.source.load(data.content);
     });
   }
@@ -88,8 +90,10 @@ export class DisputeComponent implements OnInit {
     this.disputeService.upload(formData).subscribe(
       res => {
         this.toastrService.show('Import successfully.', 'Successful !', { status: 'success' });
-        // tslint:disable-next-line: no-console
-        console.log(res);
+        this.source.load([
+          ...res,
+          ...this.rawSrc,
+        ]);
       },
       err => {
         this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
