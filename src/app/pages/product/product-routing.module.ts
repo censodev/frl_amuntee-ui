@@ -14,10 +14,10 @@ const routes: Routes = [
     path: 'add',
     component: ProductAddComponent,
   },
-  {
-    path: 'type',
-    component: ProductTypeComponent,
-  },
+  // {
+  //   path: 'type',
+  //   component: ProductTypeComponent,
+  // },
   {
     path: ':id',
     component: ProductUpdateComponent,

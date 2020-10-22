@@ -5,7 +5,7 @@ export class Product {
     code: string;
     name: string;
     baseCost: number;
-    type: ProductType;
+    // type: ProductType;
     supplier: Supplier;
     shippingTime?: any;
     processingTime?: any;

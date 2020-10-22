@@ -26,9 +26,9 @@ export class ProductUpdateComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.productService.findOne(params['id']).subscribe(res => {
         this.product = res;
-        this.productService.listTypes().subscribe(data => {
-          this.types = data.content;
-        });
+        // this.productService.listTypes().subscribe(data => {
+        //   this.types = data.content;
+        // });
         this.supplierService.list().subscribe(data => {
           this.suppliers = data.content;
         });

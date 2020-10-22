@@ -21,10 +21,10 @@ export class ProductAddComponent implements OnInit {
               private supplierService: SupplierService) { }
 
   ngOnInit(): void {
-    this.productService.listTypes().subscribe(data => {
-      this.types = data.content;
-      this.product.type = this.types[0];
-    });
+    // this.productService.listTypes().subscribe(data => {
+    //   this.types = data.content;
+    //   this.product.type = this.types[0];
+    // });
     this.supplierService.list().subscribe(data => {
       this.suppliers = data.content;
       this.product.supplier = this.suppliers[0];

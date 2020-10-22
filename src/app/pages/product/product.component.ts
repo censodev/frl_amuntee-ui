@@ -40,10 +40,10 @@ export class ProductComponent implements OnInit {
         title: 'Name',
         type: 'string',
       },
-      type: {
-        title: 'Type',
-        type: 'string',
-      },
+      // type: {
+      //   title: 'Type',
+      //   type: 'string',
+      // },
       baseCost: {
         title: 'Base Cost',
         type: 'string',
@@ -65,7 +65,7 @@ export class ProductComponent implements OnInit {
       const data = res.content.map(i => {
         return {
           ...i,
-          type: i.type.name,
+          // type: i.type.name,
           supplier: i.supplier.name,
         };
       });
