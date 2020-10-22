@@ -47,6 +47,12 @@ export class PagesComponent {
         ],
       },
       {
+        title: 'Dispute',
+        icon: 'trending-down-outline',
+        link: '/pages/dispute',
+        hidden: !isAdmin,
+      },
+      {
         title: 'CMS',
         group: true,
         hidden: !isAdmin,
@@ -66,16 +72,17 @@ export class PagesComponent {
       {
         title: 'Products',
         icon: 'archive-outline',
-        children: [
-          {
-            title: 'List',
-            link: '/pages/product',
-          },
-          {
-            title: 'Product Types',
-            link: '/pages/product/type',
-          },
-        ],
+        link: '/pages/product',
+        // children: [
+        //   {
+        //     title: 'List',
+        //     link: '/pages/product',
+        //   },
+        //   {
+        //     title: 'Product Types',
+        //     link: '/pages/product/type',
+        //   },
+        // ],
         hidden: !isAdmin,
       },
       {

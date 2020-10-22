@@ -1,0 +1,12 @@
+<nb-card>
+  <nb-card-header> Disputes </nb-card-header>
+
+  <nb-card-body>
+    <div class="form-group d-flex flex-column">
+        <label class="label">Import CSV</label>
+        <input nbInput type="file" (change)="sendCsv($event.target.files)">
+    </div>
+    <ng2-smart-table *ngIf="source" [settings]="settings" [source]="source">
+    </ng2-smart-table>
+  </nb-card-body>
+</nb-card>
