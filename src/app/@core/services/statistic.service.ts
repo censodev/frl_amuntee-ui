@@ -58,8 +58,8 @@ export class StatisticService {
 
   private getHttpParamsStatistic(from: Date, to: Date, storeId: number, sellerCode: string): HttpParams {
     return new HttpParams()
-      .set('from', from ? '' + from.getTime() : '')
-      .set('to', to ? '' + to.getTime() : '')
+      .set('from', from ? from.getTime() + 50400000 + '' : '')
+      .set('to', to ? to.getTime() + 50400000 + '' : '')
       .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '')
       .set('sellerCode', sellerCode && sellerCode !== '' ? sellerCode : '');
   }

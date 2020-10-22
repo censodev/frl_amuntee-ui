@@ -1,8 +1,7 @@
 import { AuthService } from './../../../auth/auth.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NbMediaBreakpointsService, NbMenuItem, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
+import { NbMediaBreakpointsService, NbMenuService, NbSidebarService, NbThemeService } from '@nebular/theme';
 
-import { UserData } from '../../../@core/data/users';
 import { LayoutService } from '../../../@core/utils';
 import { map, takeUntil } from 'rxjs/operators';
 import { Subject, Observable } from 'rxjs';
@@ -53,10 +52,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   currentTheme = 'default';
 
   userMenu = [
-    {
-      title: 'Profile',
-      data: { id: 'profile' },
-    },
+    // {
+    //   title: 'Profile',
+    //   data: { id: 'profile' },
+    // },
     {
       title: 'Log out',
       data: { id: 'logout' },
@@ -109,6 +108,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
           this.authService.logout().subscribe(res => {
             this.router.navigate(['/auth/login']);
           });
+          break;
+        default:
           break;
       }
     });

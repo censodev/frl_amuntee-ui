@@ -23,10 +23,10 @@ export class ReportSellerComponent implements OnInit {
         title: 'Name',
         type: 'string',
       },
-      team: {
-        title: 'Team',
-        type: 'string',
-      },
+      // team: {
+      //   title: 'Team',
+      //   type: 'string',
+      // },
       orderCount: {
         title: 'Orders',
         type: 'number',
@@ -55,12 +55,16 @@ export class ReportSellerComponent implements OnInit {
         title: 'Net Profit',
         type: 'number',
       },
-      bonus: {
-        title: 'Bonus',
+      bonusSale: {
+        title: 'Bonus Sale',
         type: 'number',
       },
-      sellerProfit: {
-        title: 'Profit',
+      bonusProfit: {
+        title: 'Bonus Profit',
+        type: 'number',
+      },
+      sharedProfit: {
+        title: 'Profit Shared',
         type: 'number',
       },
     },

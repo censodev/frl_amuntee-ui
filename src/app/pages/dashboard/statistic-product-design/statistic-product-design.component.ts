@@ -52,11 +52,11 @@ export class StatisticProductDesignComponent implements OnInit, OnChanges {
       this.source.load(this.data.map((cur, i) => {
         return {
           nbr: i + 1,
-          productName: cur.productName ? cur.productName : 'Undefined',
-          sku: cur.sku ? cur.sku : 'Undefined',
-          sellerName: cur.sellerName ? cur.sellerName : 'Undefined',
-          productQuantity: cur.productQuantity ? cur.productQuantity : 'Undefined',
-          revenue: cur.revenue ? cur.revenue : 'Undefined',
+          productName: cur.productName,
+          sku: cur.sku,
+          sellerName: cur.sellerName,
+          productQuantity: cur.productQuantity,
+          revenue: cur.revenue,
         };
       }));
     }

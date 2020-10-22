@@ -43,6 +43,10 @@ export class ReportTotalSalesComponent implements OnInit {
         title: 'Marketing Fee',
         type: 'number',
       },
+      profit: {
+        title: 'Profit',
+        type: 'number',
+      },
     },
   };
 
@@ -62,6 +66,7 @@ export class ReportTotalSalesComponent implements OnInit {
               storeFee: cur.storeFee,
               baseCostFee: cur.baseCostFee,
               marketingFee: cur.marketingFee,
+              profit: Math.round((cur.revenue - cur.storeFee - cur.baseCostFee - cur.marketingFee) * 100) / 100.00,
             };
           }));
         });
