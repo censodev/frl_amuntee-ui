@@ -30,12 +30,15 @@ export class DashboardComponent implements OnInit {
         .subscribe((res: any[]) => this.callbackStatisticSummary(res));
       this.statisticService.statisticForProductType(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductType(res));
-      this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
-        .subscribe((res: any[]) => this.callbackStatisticSeller(res));
       this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductDesign(res));
-      this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
-        .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
+
+      if (this.authService.isAdmin()) {
+        this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
+          .subscribe((res: any[]) => this.callbackStatisticSeller(res));
+        this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
+          .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
+      }
     });
   }
 
@@ -100,8 +103,8 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSeller(data: any[]) {
+    data = data.filter(i => i.name && isNaN(i.name));
     const chartData = data
-      .filter(i => i.name)
       .reduce((acc, cur: any) => {
         return {
           legends: [...acc.legends, cur.name],

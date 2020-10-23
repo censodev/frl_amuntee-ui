@@ -56,7 +56,7 @@ export class StatisticProductDesignComponent implements OnInit, OnChanges {
           sku: cur.sku,
           sellerName: cur.sellerName,
           productQuantity: cur.productQuantity,
-          revenue: cur.revenue,
+          revenue: '$' + cur.revenue,
         };
       }));
     }

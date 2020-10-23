@@ -18,14 +18,13 @@ export class TimeService {
 
   yesterday() {
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
     yesterday.setHours(0, 0, 0, 0);
-    const yesterdayFrom = yesterday;
-    yesterday.setHours(23, 59, 59, 999);
-    const yesterdayTo = yesterday;
+    yesterday.setDate(yesterday.getDate() - 1);
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
     return {
-      from: yesterdayFrom,
-      to: yesterdayTo,
+      from: yesterday,
+      to: now,
     };
   }
 

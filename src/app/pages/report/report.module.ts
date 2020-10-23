@@ -1,5 +1,5 @@
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NbCardModule } from '@nebular/theme';
+import { NbCardModule, NbIconModule } from '@nebular/theme';
 import { DashboardModule } from './../dashboard/dashboard.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -17,6 +17,7 @@ import { ReportTotalSalesComponent } from './report-total-sales/report-total-sal
     DashboardModule,
     NbCardModule,
     Ng2SmartTableModule,
+    NbIconModule,
   ],
 })
 export class ReportModule { }

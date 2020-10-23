@@ -33,6 +33,9 @@ export class StatisticFeeComponent implements OnInit, OnChanges {
   initChart() {
     this.options = {
       backgroundColor: this.eTheme.bg,
+      legend: {
+        data: ['Base Cost Fee', 'Store Fee', 'Marketing Fee'],
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {

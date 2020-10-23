@@ -34,6 +34,9 @@ export class StatisticSummaryComponent implements OnInit, OnChanges {
   initChart() {
     this.options = {
       backgroundColor: this.eTheme.bg,
+      legend: {
+        data: ['Revenue', 'Fee', 'Profit'],
+      },
       tooltip: {
         trigger: 'axis',
         axisPointer: {

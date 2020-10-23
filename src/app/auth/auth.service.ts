@@ -31,6 +31,7 @@ export class AuthService {
 
   logout(): Observable<boolean> {
     this.cookieService.deleteAll('/');
+    this.cookieService.deleteAll('/pages');
     return of(true);
   }
 

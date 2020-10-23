@@ -61,11 +61,8 @@ export class StatisticSellerComponent implements OnInit, OnChanges, OnDestroy {
                 },
               },
               label: {
-                normal: {
-                  textStyle: {
-                    color: echarts.textColor,
-                  },
-                },
+                formatter: '{b} ({d}%)',
+                color: echarts.textColor,
               },
               labelLine: {
                 normal: {

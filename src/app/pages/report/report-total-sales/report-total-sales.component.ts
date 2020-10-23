@@ -9,10 +9,14 @@ import { AuthService } from 'app/auth/auth.service';
   styleUrls: ['./report-total-sales.component.scss'],
 })
 export class ReportTotalSalesComponent implements OnInit {
+  page = 0;
+  limit = 5;
+  rawSource: any[];
   source = new LocalDataSource;
   settings = {
     mode: 'external',
     hideSubHeader: true,
+    pager: { display: false },
     actions: {
       add: false,
       delete: false,
@@ -58,19 +62,29 @@ export class ReportTotalSalesComponent implements OnInit {
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statistic(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
-          this.source.load(res.map((cur, i) => {
-            return {
-              date: `${cur.year}/${cur.month}/${cur.day}`,
-              orderCount: cur.orderCount,
-              revenue: cur.revenue,
-              storeFee: cur.storeFee,
-              baseCostFee: cur.baseCostFee,
-              marketingFee: cur.marketingFee,
-              profit: Math.round((cur.revenue - cur.storeFee - cur.baseCostFee - cur.marketingFee) * 100) / 100.00,
-            };
-          }));
+          res = this.mapData(res);
+          this.rawSource = res;
+          this.source.load(this.rawSource.slice(0, (this.page + 1) * this.limit));
         });
     });
   }
 
+  loadMore() {
+    this.page++;
+    this.source.load(this.rawSource.slice(0, (this.page + 1) * this.limit));
+  }
+
+  mapData(data: any[]) {
+    return data.map(cur => {
+      return {
+        date: `${cur.year}/${cur.month}/${cur.day}`,
+        orderCount: cur.orderCount,
+        revenue: cur.revenue,
+        storeFee: cur.storeFee,
+        baseCostFee: cur.baseCostFee,
+        marketingFee: cur.marketingFee,
+        profit: Math.round((cur.revenue - cur.storeFee - cur.baseCostFee - cur.marketingFee) * 100) / 100.00,
+      };
+    });
+  }
 }
