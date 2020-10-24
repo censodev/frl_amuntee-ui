@@ -28,6 +28,12 @@ const routes: Routes = [{
         .then(m => m.DisputeModule),
     },
     {
+      path: 'facebook-ads',
+      canActivate: [AdminGuard],
+      loadChildren: () => import('./facebook-ads/facebook-ads.module')
+        .then(m => m.FacebookAdsModule),
+    },
+    {
       path: 'store',
       canActivate: [AdminGuard],
       loadChildren: () => import('./store/store.module')

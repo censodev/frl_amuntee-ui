@@ -53,6 +53,12 @@ export class PagesComponent {
         hidden: !isAdmin,
       },
       {
+        title: 'Facebook Ads',
+        icon: 'facebook-outline',
+        link: '/pages/facebook-ads',
+        hidden: !isAdmin,
+      },
+      {
         title: 'CMS',
         group: true,
         hidden: !isAdmin,

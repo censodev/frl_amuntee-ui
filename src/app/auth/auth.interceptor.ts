@@ -15,6 +15,8 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    if (/graph.facebook.com/.test(request.url))
+      return next.handle(request);
     request = request.clone({
       headers: new HttpHeaders({
         'Authorization': `Bearer ${this.authService.getToken()}`,
