@@ -5,5 +5,5 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'http://45.77.250.236:8000/api',
+  apiUrl: 'http://128.199.118.150:8000/api',
 };
