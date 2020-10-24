@@ -1,7 +1,4 @@
 import { AuthService } from './../../auth/auth.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { Store } from './../../@core/models/business/store';
-import { StoreService } from './../../@core/services/store.service';
 import { StatisticService } from './../../@core/services/statistic.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -11,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
+  profitCompany = undefined;
+
   statistic = {
     summary: undefined,
     fee: undefined,
@@ -27,15 +26,28 @@ export class DashboardComponent implements OnInit {
     const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statistic(data.from, data.to, data.storeId, sellerCode)
-        .subscribe((res: any[]) => this.callbackStatisticSummary(res));
+        .subscribe((res: any[]) => {
+          res = res.filter(stat => stat.year && stat.month);
+          this.callbackStatisticSummary(res);
+          if (this.authService.isAdmin()) {
+            this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
+              .subscribe((res2: any[]) => {
+                res2 = res2.filter(i => i.name && isNaN(i.name));
+                this.callbackStatisticSeller(res2);
+                this.statisticService.statisticForDispute(data.from, data.to, data.storeId, sellerCode)
+                  .subscribe((res3: any[]) => {
+                    this.profitCompany = this.calcCompanyProfit(res, res2, res3);
+                  });
+              });
+          }
+        });
+
       this.statisticService.statisticForProductType(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductType(res));
       this.statisticService.statisticForProductDesign(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => this.callbackStatisticProductDesign(res));
 
       if (this.authService.isAdmin()) {
-        this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
-          .subscribe((res: any[]) => this.callbackStatisticSeller(res));
         this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
           .subscribe((res: any[]) => this.callbackStatisticSupplier(res));
       }
@@ -43,7 +55,6 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSummary(data: any[]) {
-    data = data.filter(stat => stat.year && stat.month);
     const chartData = data
       .reduce((acc, cur: any) => {
         const revenue = cur.revenue;
@@ -103,9 +114,23 @@ export class DashboardComponent implements OnInit {
   }
 
   callbackStatisticSeller(data: any[]) {
-    data = data.filter(i => i.name && isNaN(i.name));
     const chartData = data
       .reduce((acc, cur: any) => {
+        if (acc.legends.includes(cur.name)) {
+          const target = acc.data.find(i => i.name === cur.name);
+          const newAcc = acc.data.filter(i => i.name !== cur.name);
+
+          return {
+            legends: acc.legends,
+            data: [
+              ...newAcc,
+              {
+                name: cur.name,
+                value: cur.orderCount + target.value,
+              },
+            ],
+          };
+        }
         return {
           legends: [...acc.legends, cur.name],
           data: [
@@ -134,7 +159,6 @@ export class DashboardComponent implements OnInit {
 
   callbackStatisticSupplier(data: any[]) {
     data = data.filter(i => i.baseCost);
-
     const chartData = data
       .reduce((acc, cur: any) => {
         const curSplName = cur.supplierName ? cur.supplierName : 'Undefined';
@@ -173,5 +197,38 @@ export class DashboardComponent implements OnInit {
       totalBaseCost: data.reduce((acc, cur: any) => acc + cur.baseCost, 0),
     };
 
+  }
+
+  calcCompanyProfit(summary: any[], sellers: any[], disputes: any[]) {
+    return summary.reduce((accSummary, curSummary) => {
+      // summary
+      const revenue = curSummary.revenue;
+      const fee =  Math.round((curSummary.marketingFee + curSummary.storeFee + curSummary.baseCostFee) * 100) / 100.00;
+      const totalProfit = Math.round((revenue - fee) * 100) / 100.00;
+      // seller
+      const sellerProfit = sellers.filter(seller => {
+        return seller.year === curSummary.year
+            && seller.month === curSummary.month
+            && seller.day === curSummary.day;
+      }).map(i => i.sharedProfit).reduce((acc, cur) => acc + cur, 0);
+      // dispute
+      const dispute = disputes.filter(dis => {
+        return dis.year === curSummary.year
+            && dis.month === curSummary.month
+            && dis.day === curSummary.day;
+      }).map(i => i.dispute).reduce((acc, cur) => acc + cur, 0);
+      return {
+        data: [
+          [...accSummary.data[0], totalProfit],
+          [...accSummary.data[1], sellerProfit],
+          [...accSummary.data[2], dispute],
+          [...accSummary.data[3], Math.round((totalProfit - sellerProfit - dispute) * 100) / 100.00],
+        ],
+        chartLabel: [...accSummary.chartLabel, `${curSummary.month}/${curSummary.day}`],
+      };
+    }, {
+      chartLabel: [],
+      data: [[], [], [], []],
+    });
   }
 }

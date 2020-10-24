@@ -31,6 +31,14 @@ export class StatisticService {
     { id: 5, name: 'Custom' },
   ];
 
+  private getHttpParamsStatistic(from: Date, to: Date, storeId: number, sellerCode: string): HttpParams {
+    return new HttpParams()
+      .set('from', from ? from.getTime() + 50400000 + '' : '')
+      .set('to', to ? to.getTime() + 50400000 + '' : '')
+      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '')
+      .set('sellerCode', sellerCode && sellerCode !== '' ? sellerCode : '');
+  }
+
   statistic(from: Date, to: Date, storeId: number, sellerCode: string) {
     const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
     return this.http.get(`${BASE_URL}`, { params: params });
@@ -56,11 +64,8 @@ export class StatisticService {
     return this.http.get(`${BASE_URL}/product-design`, { params: params });
   }
 
-  private getHttpParamsStatistic(from: Date, to: Date, storeId: number, sellerCode: string): HttpParams {
-    return new HttpParams()
-      .set('from', from ? from.getTime() + 50400000 + '' : '')
-      .set('to', to ? to.getTime() + 50400000 + '' : '')
-      .set('storeId', storeId && storeId !== 0 ? storeId.toString() : '')
-      .set('sellerCode', sellerCode && sellerCode !== '' ? sellerCode : '');
+  statisticForDispute(from: Date, to: Date, storeId: number, sellerCode: string) {
+    const params = this.getHttpParamsStatistic(from, to, storeId, sellerCode);
+    return this.http.get(`${BASE_URL}/dispute`, { params: params });
   }
 }

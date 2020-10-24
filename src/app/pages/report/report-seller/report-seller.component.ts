@@ -77,7 +77,30 @@ export class ReportSellerComponent implements OnInit {
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
-          this.source.load(res);
+          this.source.load(res.filter(i => isNaN(i.name))
+            .reduce((acc, cur) => {
+              if (acc.some(i => i.name === cur.name)) {
+                const target = acc.find(i => i.name === cur.name);
+                const newAcc = acc.filter(i => i.name !== cur.name);
+                return [
+                  ...newAcc,
+                  {
+                    name: target.name,
+                    orderCount: target.orderCount + cur.orderCount,
+                    productQuantity: target.productQuantity + cur.productQuantity,
+                    revenue: Math.round((target.revenue + cur.revenue) * 100) / 100.00,
+                    marketingFee: Math.round((target.marketingFee + cur.marketingFee) * 100) / 100.00,
+                    baseCostFee: Math.round((target.baseCostFee + cur.baseCostFee) * 100) / 100.00,
+                    storeFee: Math.round((target.storeFee + cur.storeFee) * 100) / 100.00,
+                    netProfit: Math.round((target.netProfit + cur.netProfit) * 100) / 100.00,
+                    bonusSale: Math.round((target.bonusSale + cur.bonusSale) * 100) / 100.00,
+                    bonusProfit: Math.round((target.bonusProfit + cur.bonusProfit) * 100) / 100.00,
+                    sharedProfit: Math.round((target.sharedProfit + cur.sharedProfit) * 100) / 100.00,
+                  },
+                ];
+              }
+              return [...acc, cur];
+            }, []));
         });
     });
   }

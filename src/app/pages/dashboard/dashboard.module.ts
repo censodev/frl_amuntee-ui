@@ -14,6 +14,7 @@ import { StatisticProductTypeComponent } from './statistic-product-type/statisti
 import { StatisticSellerComponent } from './statistic-seller/statistic-seller.component';
 import { StatisticProductDesignComponent } from './statistic-product-design/statistic-product-design.component';
 import { StatisticSupplierComponent } from './statistic-supplier/statistic-supplier.component';
+import { StatisticCompanyProfitComponent } from './statistic-company-profit/statistic-company-profit.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { StatisticSupplierComponent } from './statistic-supplier/statistic-suppl
     StatisticSellerComponent,
     StatisticProductDesignComponent,
     StatisticSupplierComponent,
+    StatisticCompanyProfitComponent,
   ],
   imports: [
     CommonModule,

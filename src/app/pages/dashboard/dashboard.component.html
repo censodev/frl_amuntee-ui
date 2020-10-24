@@ -14,3 +14,6 @@
     *ngIf="statistic.supplier"
     [chartData]="statistic.supplier.chartData"
     [totalBaseCost]="statistic.supplier.totalBaseCost"></ngx-statistic-supplier>
+<ngx-statistic-company-profit
+    *ngIf="profitCompany"
+    [chartData]="profitCompany"></ngx-statistic-company-profit>
