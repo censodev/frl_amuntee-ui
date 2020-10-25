@@ -67,16 +67,16 @@ export class ReportSupplierComponent implements OnInit {
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
-          this.source = res.map((cur, i) => {
-            const date = new Date(cur.date);
-            return {
-              ...cur,
-              nbr: i + 1,
-              date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()}`,
-              price: this.util.formatCurrency(cur.price),
-              baseCost: this.util.formatCurrency(cur.baseCost),
-            };
-          });
+          this.source = res
+            .sort((a, b) => a.date <= b.date ? 1 : -1)
+            .map((cur, i) => {
+              return {
+                ...cur,
+                nbr: i + 1,
+                price: this.util.formatCurrency(cur.price),
+                baseCost: this.util.formatCurrency(cur.baseCost),
+              };
+            });
         });
     });
   }

@@ -38,14 +38,14 @@ export class StatisticSellerComponent implements OnInit, OnChanges, OnDestroy {
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)',
           },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: this.chartData.legends,
-            textStyle: {
-              color: echarts.textColor,
-            },
-          },
+          // legend: {
+          //   orient: 'vertical',
+          //   left: 'left',
+          //   data: this.chartData.legends,
+          //   textStyle: {
+          //     color: echarts.textColor,
+          //   },
+          // },
           series: [
             {
               name: 'Orders',

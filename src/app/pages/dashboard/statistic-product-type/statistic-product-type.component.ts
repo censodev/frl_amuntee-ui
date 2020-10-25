@@ -35,14 +35,14 @@ export class StatisticProductTypeComponent implements OnInit, OnChanges, OnDestr
             trigger: 'item',
             formatter: '{a} <br/>{b} : {c} ({d}%)',
           },
-          legend: {
-            orient: 'vertical',
-            left: 'left',
-            data: this.chartData.legends,
-            textStyle: {
-              color: echarts.textColor,
-            },
-          },
+          // legend: {
+          //   orient: 'vertical',
+          //   left: 'left',
+          //   data: this.chartData.legends,
+          //   textStyle: {
+          //     color: echarts.textColor,
+          //   },
+          // },
           series: [
             {
               name: 'Orders',
@@ -58,11 +58,8 @@ export class StatisticProductTypeComponent implements OnInit, OnChanges, OnDestr
                 },
               },
               label: {
-                normal: {
-                  textStyle: {
-                    color: echarts.textColor,
-                  },
-                },
+                formatter: '{b} ({d}%)',
+                color: echarts.textColor,
               },
               labelLine: {
                 normal: {
