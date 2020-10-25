@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { FacebookAdsRoutingModule } from './facebook-ads-routing.module';
 import { FacebookAdsComponent } from './facebook-ads.component';
+import { SharedModule } from 'app/shared/shared.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { FacebookAdsComponent } from './facebook-ads.component';
     Ng2SmartTableModule,
     NbInputModule,
     NbIconModule,
+    SharedModule,
   ],
 })
 export class FacebookAdsModule { }

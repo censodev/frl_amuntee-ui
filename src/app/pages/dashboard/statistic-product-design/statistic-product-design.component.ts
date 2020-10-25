@@ -1,3 +1,4 @@
+import { UtilService } from './../../../@core/services/util.service';
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 
@@ -45,7 +46,7 @@ export class StatisticProductDesignComponent implements OnInit, OnChanges {
     },
   };
 
-  constructor() { }
+  constructor(private util: UtilService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.data.currentValue) {
@@ -56,7 +57,7 @@ export class StatisticProductDesignComponent implements OnInit, OnChanges {
           sku: cur.sku,
           sellerName: cur.sellerName,
           productQuantity: cur.productQuantity,
-          revenue: '$' + cur.revenue,
+          revenue: this.util.formatCurrency(cur.revenue),
         };
       }));
     }

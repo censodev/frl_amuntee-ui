@@ -1,3 +1,4 @@
+import { UtilService } from './../../@core/services/util.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { DisputeService } from './../../@core/services/dispute.service';
 import { Component, OnInit } from '@angular/core';
@@ -75,7 +76,8 @@ export class DisputeComponent implements OnInit {
   };
 
   constructor(private disputeService: DisputeService,
-              private toastrService: NbToastrService) { }
+              private toastrService: NbToastrService,
+              private util: UtilService) { }
 
   ngOnInit(): void {
     this.disputeService.list().subscribe(data => {
@@ -84,6 +86,7 @@ export class DisputeComponent implements OnInit {
         return {
           ...i,
           time: `${i.time[0]}/${i.time[1]}/${i.time[2]}`,
+          disputeFee: this.util.formatCurrency(i.disputeFee),
         };
       }));
     });
@@ -98,7 +101,11 @@ export class DisputeComponent implements OnInit {
         this.toastrService.show('Import successfully.', 'Successful !', { status: 'success' });
         this.source.load([
           ...res.map(i => {
-            return { ...i, time: `${i.time[0]}/${i.time[1]}/${i.time[2]}` };
+            return {
+              ...i,
+              time: `${i.time[0]}/${i.time[1]}/${i.time[2]}`,
+              disputeFee: this.util.formatCurrency(i.disputeFee),
+            };
           }),
           ...this.rawSrc,
         ]);

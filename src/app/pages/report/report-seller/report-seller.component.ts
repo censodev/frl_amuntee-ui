@@ -1,7 +1,7 @@
+import { UtilService } from './../../../@core/services/util.service';
 import { AuthService } from './../../../auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from 'app/@core/services/statistic.service';
-import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'ngx-report-seller',
@@ -9,10 +9,11 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./report-seller.component.scss'],
 })
 export class ReportSellerComponent implements OnInit {
-  source = new LocalDataSource;
+  source: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
+    pager: { display: false },
     actions: {
       add: false,
       delete: false,
@@ -70,14 +71,15 @@ export class ReportSellerComponent implements OnInit {
     },
   };
   constructor(private statisticService: StatisticService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private util: UtilService) { }
 
   ngOnInit(): void {
     const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statisticForSeller(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
-          this.source.load(res.filter(i => isNaN(i.name))
+          this.source = res.filter(i => isNaN(i.name))
             .reduce((acc, cur) => {
               if (acc.some(i => i.name === cur.name)) {
                 const target = acc.find(i => i.name === cur.name);
@@ -88,19 +90,33 @@ export class ReportSellerComponent implements OnInit {
                     name: target.name,
                     orderCount: target.orderCount + cur.orderCount,
                     productQuantity: target.productQuantity + cur.productQuantity,
-                    revenue: Math.round((target.revenue + cur.revenue) * 100) / 100.00,
-                    marketingFee: Math.round((target.marketingFee + cur.marketingFee) * 100) / 100.00,
-                    baseCostFee: Math.round((target.baseCostFee + cur.baseCostFee) * 100) / 100.00,
-                    storeFee: Math.round((target.storeFee + cur.storeFee) * 100) / 100.00,
-                    netProfit: Math.round((target.netProfit + cur.netProfit) * 100) / 100.00,
-                    bonusSale: Math.round((target.bonusSale + cur.bonusSale) * 100) / 100.00,
-                    bonusProfit: Math.round((target.bonusProfit + cur.bonusProfit) * 100) / 100.00,
-                    sharedProfit: Math.round((target.sharedProfit + cur.sharedProfit) * 100) / 100.00,
+                    revenue: this.util.formatCurrency(target.revenue + cur.revenue),
+                    marketingFee: this.util.formatCurrency(target.marketingFee + cur.marketingFee),
+                    baseCostFee: this.util.formatCurrency(target.baseCostFee + cur.baseCostFee),
+                    storeFee: this.util.formatCurrency(target.storeFee + cur.storeFee),
+                    netProfit: this.util.formatCurrency(target.netProfit + cur.netProfit),
+                    bonusSale: this.util.formatCurrency(target.bonusSale + cur.bonusSale),
+                    bonusProfit: this.util.formatCurrency(target.bonusProfit + cur.bonusProfit),
+                    sharedProfit: this.util.formatCurrency(target.sharedProfit + cur.sharedProfit),
                   },
                 ];
               }
-              return [...acc, cur];
-            }, []));
+              return [
+                ...acc,
+                {
+                  name: cur.name,
+                  orderCount: cur.orderCount,
+                  productQuantity: cur.productQuantity,
+                  revenue: this.util.formatCurrency(cur.revenue),
+                  marketingFee: this.util.formatCurrency(cur.marketingFee),
+                  baseCostFee: this.util.formatCurrency(cur.baseCostFee),
+                  storeFee: this.util.formatCurrency(cur.storeFee),
+                  netProfit: this.util.formatCurrency(cur.netProfit),
+                  bonusSale: this.util.formatCurrency(cur.bonusSale),
+                  bonusProfit: this.util.formatCurrency(cur.bonusProfit),
+                  sharedProfit: this.util.formatCurrency(cur.sharedProfit),
+                }];
+            }, []);
         });
     });
   }

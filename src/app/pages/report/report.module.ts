@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbCardModule, NbIconModule } from '@nebular/theme';
 import { DashboardModule } from './../dashboard/dashboard.module';
@@ -18,6 +19,7 @@ import { ReportTotalSalesComponent } from './report-total-sales/report-total-sal
     NbCardModule,
     Ng2SmartTableModule,
     NbIconModule,
+    SharedModule,
   ],
 })
 export class ReportModule { }

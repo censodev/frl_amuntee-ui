@@ -3,15 +3,10 @@
     <nb-card-header>Total Sales</nb-card-header>
   
     <nb-card-body>
-      <ng2-smart-table
-        *ngIf="source"
+      <ngx-data-table
         [settings]="settings"
-        [source]="source"
-      >
-      </ng2-smart-table>
-      <a class="mt-3 text-center d-block" (click)="loadMore()">
-        <nb-icon icon="sync-outline"></nb-icon>
-        Load more
-      </a>
+        [data]="source"
+        [limit]="10"
+      ></ngx-data-table>
     </nb-card-body>
 </nb-card>

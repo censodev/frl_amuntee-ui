@@ -1,4 +1,4 @@
-import { LocalDataSource } from 'ng2-smart-table';
+import { UtilService } from './../../../@core/services/util.service';
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from 'app/@core/services/statistic.service';
 import { AuthService } from 'app/auth/auth.service';
@@ -11,8 +11,7 @@ import { AuthService } from 'app/auth/auth.service';
 export class ReportTotalSalesComponent implements OnInit {
   page = 0;
   limit = 5;
-  rawSource: any[];
-  source = new LocalDataSource;
+  source: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -55,7 +54,8 @@ export class ReportTotalSalesComponent implements OnInit {
   };
 
   constructor(private statisticService: StatisticService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private util: UtilService) { }
 
   ngOnInit(): void {
     const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
@@ -63,15 +63,9 @@ export class ReportTotalSalesComponent implements OnInit {
       this.statisticService.statistic(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
           res = this.mapData(res);
-          this.rawSource = res;
-          this.source.load(this.rawSource.slice(0, (this.page + 1) * this.limit));
+          this.source = res;
         });
     });
-  }
-
-  loadMore() {
-    this.page++;
-    this.source.load(this.rawSource.slice(0, (this.page + 1) * this.limit));
   }
 
   mapData(data: any[]) {
@@ -79,11 +73,11 @@ export class ReportTotalSalesComponent implements OnInit {
       return {
         date: `${cur.year}/${cur.month}/${cur.day}`,
         orderCount: cur.orderCount,
-        revenue: cur.revenue,
-        storeFee: cur.storeFee,
-        baseCostFee: cur.baseCostFee,
-        marketingFee: cur.marketingFee,
-        profit: Math.round((cur.revenue - cur.storeFee - cur.baseCostFee - cur.marketingFee) * 100) / 100.00,
+        revenue: this.util.formatCurrency(cur.revenue),
+        storeFee: this.util.formatCurrency(cur.storeFee),
+        baseCostFee: this.util.formatCurrency(cur.baseCostFee),
+        marketingFee: this.util.formatCurrency(cur.marketingFee),
+        profit: this.util.formatCurrency(cur.revenue - cur.storeFee - cur.baseCostFee - cur.marketingFee),
       };
     });
   }

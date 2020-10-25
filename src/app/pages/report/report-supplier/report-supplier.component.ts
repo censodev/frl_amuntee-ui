@@ -1,8 +1,7 @@
+import { UtilService } from './../../../@core/services/util.service';
 import { Component, OnInit } from '@angular/core';
 import { StatisticService } from 'app/@core/services/statistic.service';
 import { AuthService } from 'app/auth/auth.service';
-import { LocalDataSource } from 'ng2-smart-table';
-import { cursorTo } from 'readline';
 
 @Component({
   selector: 'ngx-report-supplier',
@@ -10,10 +9,11 @@ import { cursorTo } from 'readline';
   styleUrls: ['./report-supplier.component.scss'],
 })
 export class ReportSupplierComponent implements OnInit {
-  source = new LocalDataSource;
+  source: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
+    pager: { display: false },
     actions: {
       add: false,
       delete: false,
@@ -59,21 +59,24 @@ export class ReportSupplierComponent implements OnInit {
     },
   };
   constructor(private statisticService: StatisticService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private util: UtilService) { }
 
   ngOnInit(): void {
     const sellerCode = this.authService.isAdmin() ? null : this.authService.getCode();
     this.statisticService.onFiltered.subscribe(data => {
       this.statisticService.statisticForSupplier(data.from, data.to, data.storeId, sellerCode)
         .subscribe((res: any[]) => {
-          this.source.load(res.map((cur, i) => {
+          this.source = res.map((cur, i) => {
             const date = new Date(cur.date);
             return {
               ...cur,
               nbr: i + 1,
               date: `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDay()}`,
+              price: this.util.formatCurrency(cur.price),
+              baseCost: this.util.formatCurrency(cur.baseCost),
             };
-          }));
+          });
         });
     });
   }

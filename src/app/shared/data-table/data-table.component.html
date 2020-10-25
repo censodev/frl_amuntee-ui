@@ -1,0 +1,10 @@
+<div>
+    <ng2-smart-table
+        *ngIf="source"
+        [settings]="settings"
+        [source]="source">
+    </ng2-smart-table>
+    <a class="mt-3 text-center d-block load-more-link" (click)="loadMore()">
+        <nb-icon icon="sync-outline"></nb-icon> Load more
+    </a>
+</div>

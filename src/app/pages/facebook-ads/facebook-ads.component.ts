@@ -8,7 +8,7 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./facebook-ads.component.scss'],
 })
 export class FacebookAdsComponent implements OnInit {
-  source = new LocalDataSource();
+  source: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -55,7 +55,7 @@ export class FacebookAdsComponent implements OnInit {
         type: 'number',
       },
       currency: {
-        title: 'Balance',
+        title: 'Currency',
         type: 'string',
       },
       adsets: {
@@ -80,7 +80,7 @@ export class FacebookAdsComponent implements OnInit {
       (res: any) => {
         const data = res.adaccounts.data;
         // console.log(data);
-        this.source.load(data.map(item => {
+        this.source = data.map(item => {
           return {
             ...item,
             id: item.id.replace(/act_/, ''),
@@ -91,7 +91,7 @@ export class FacebookAdsComponent implements OnInit {
             adsets: item.adsets.data.length,
             campaigns: item.campaigns.data.length,
           };
-        }));
+        });
       },
       err => console.error(err),
       );
