@@ -78,9 +78,7 @@ export class FacebookAdsComponent implements OnInit {
   ngOnInit(): void {
     this.facebookAdsService.fetchAccounts().subscribe(
       (res: any) => {
-        const data = res.adaccounts.data;
-        // console.log(data);
-        this.source = data.map(item => {
+        this.source = res.adaccounts?.data.map(item => {
           return {
             ...item,
             id: item.id.replace(/act_/, ''),
@@ -88,8 +86,8 @@ export class FacebookAdsComponent implements OnInit {
             account_status: this.facebookAdsService
               .getAccoutStatusDictionary()
               .find(i => i.id === item.account_status).title,
-            adsets: item.adsets.data.length,
-            campaigns: item.campaigns.data.length,
+            adsets: item.adsets?.data.length,
+            campaigns: item.campaigns?.data.length,
           };
         });
       },
