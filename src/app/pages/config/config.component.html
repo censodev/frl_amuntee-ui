@@ -1,0 +1,13 @@
+<nb-card>
+    <nb-card-header>Business Configs</nb-card-header>
+  
+    <nb-card-body>
+      <ng2-smart-table
+        *ngIf="source"
+        [settings]="settings"
+        [source]="source"
+        (editConfirm)="onEdited($event)"
+      >
+      </ng2-smart-table>
+    </nb-card-body>
+</nb-card>

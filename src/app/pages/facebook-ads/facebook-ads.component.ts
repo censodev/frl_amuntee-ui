@@ -70,6 +70,14 @@ export class FacebookAdsComponent implements OnInit {
         title: 'Pre Pay',
         type: 'boolean',
       },
+      business_name: {
+        title: 'Business',
+        type: 'string',
+      },
+      business_id: {
+        title: 'Business ID',
+        type: 'string',
+      },
     },
   };
 
@@ -77,8 +85,8 @@ export class FacebookAdsComponent implements OnInit {
 
   ngOnInit(): void {
     this.facebookAdsService.fetchAccounts().subscribe(
-      (res: any) => {
-        this.source = res.adaccounts?.data.map(item => {
+      res => {
+        this.source = res.map(item => {
           return {
             ...item,
             id: item.id.replace(/act_/, ''),
@@ -88,6 +96,8 @@ export class FacebookAdsComponent implements OnInit {
               .find(i => i.id === item.account_status).title,
             adsets: item.adsets?.data.length,
             campaigns: item.campaigns?.data.length,
+            business_id: item.business?.id,
+            business_name: item.business?.name,
           };
         });
       },

@@ -57,6 +57,12 @@ const routes: Routes = [{
       loadChildren: () => import('./user/user.module')
         .then(m => m.UserModule),
     },
+    {
+      path: 'config',
+      canActivate: [AdminGuard],
+      loadChildren: () => import('./config/config.module')
+        .then(m => m.ConfigModule),
+    },
     // {
     //   path: 'layout',
     //   loadChildren: () => import('./layout/layout.module')

@@ -59,6 +59,12 @@ export class PagesComponent {
         hidden: !isAdmin,
       },
       {
+        title: 'Configs',
+        icon: 'settings-2-outline',
+        link: '/pages/config',
+        hidden: !isAdmin,
+      },
+      {
         title: 'CMS',
         group: true,
         hidden: !isAdmin,
