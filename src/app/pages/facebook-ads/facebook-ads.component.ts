@@ -8,17 +8,19 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./facebook-ads.component.scss'],
 })
 export class FacebookAdsComponent implements OnInit {
+  summary: any[];
   source: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
+    pager: { display: false },
     actions: {
       add: false,
       delete: false,
       edit: false,
     },
     rowClassFunction: row => {
-      switch (row.data.account_status) {
+      switch (row.data.status) {
         case 'ACTIVE':
           return 'acc-status-active';
         case 'DISABLED':
@@ -34,7 +36,7 @@ export class FacebookAdsComponent implements OnInit {
         title: 'Name',
         type: 'string',
       },
-      account_status: {
+      status: {
         title: 'Status',
         type: 'string',
       },
@@ -70,12 +72,16 @@ export class FacebookAdsComponent implements OnInit {
         title: 'Pre Pay',
         type: 'boolean',
       },
-      business_name: {
-        title: 'Business',
+      funding: {
+        title: 'Funding',
         type: 'string',
       },
       business_id: {
         title: 'Business ID',
+        type: 'string',
+      },
+      business_name: {
+        title: 'Business',
         type: 'string',
       },
     },
@@ -86,20 +92,37 @@ export class FacebookAdsComponent implements OnInit {
   ngOnInit(): void {
     this.facebookAdsService.fetchAccounts().subscribe(
       res => {
-        this.source = res.map(item => {
-          return {
-            ...item,
-            id: item.id.replace(/act_/, ''),
-            age: Math.round(item.age),
-            account_status: this.facebookAdsService
-              .getAccoutStatusDictionary()
-              .find(i => i.id === item.account_status).title,
-            adsets: item.adsets?.data.length,
-            campaigns: item.campaigns?.data.length,
-            business_id: item.business?.id,
-            business_name: item.business?.name,
-          };
-        });
+        this.source = res
+          .reduce((acc, cur) => {
+            return [
+              ...acc,
+              ...cur.data.map(item => {
+                return {
+                  ...item,
+                  id: item.id.replace(/act_/, ''),
+                  age: Math.round(item.age),
+                  status: this.facebookAdsService
+                    .getAccountStatusDictionary()
+                    .find(i => i.id === item.account_status)?.title,
+                  adsets: item.adsets?.data.length || 0,
+                  campaigns: item.campaigns?.data.length || 0,
+                  business_id: item.business?.id,
+                  business_name: item.business?.name,
+                  funding: item.funding_source_details?.display_string,
+                };
+              }),
+            ];
+          }, [])
+          .sort((a, b) => {
+            return a.account_status < b.account_status ? 1 : -1;
+          });
+        this.summary = this.facebookAdsService
+          .getAccountStatusDictionary().map(item => {
+            return {
+              title: item.title,
+              data: `${this.source.filter(i => i.account_status === item.id).length || 0}/${this.source.length}`,
+            };
+          });
       },
       err => console.error(err),
       );

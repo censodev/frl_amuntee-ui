@@ -33,4 +33,8 @@ export class ConfigService {
   update(data: Config): Observable<Config> {
     return this.http.put<Config>(`${BASE_URL}/${data.id}`, data);
   }
+
+  delete(id: number): Observable<Config> {
+    return this.http.delete<Config>(`${BASE_URL}/${id}`);
+  }
 }

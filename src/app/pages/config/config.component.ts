@@ -11,10 +11,10 @@ import { Component, OnInit } from '@angular/core';
 export class ConfigComponent implements OnInit {
   source = new LocalDataSource();
   settings = {
-    hideSubHeader: true,
+    // hideSubHeader: true,
     actions: {
-      delete: false,
-      add: false,
+      // delete: false,
+      // add: false,
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -33,12 +33,16 @@ export class ConfigComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      telegramBotToken: {
-        title: 'Telegram Bot Token',
+      // telegramBotToken: {
+      //   title: 'Telegram Bot Token',
+      //   type: 'string',
+      // },
+      facebookTokenTitle: {
+        title: 'Title',
         type: 'string',
       },
       facebookToken: {
-        title: 'Facebook Token',
+        title: 'Token',
         type: 'string',
       },
     },
@@ -49,7 +53,7 @@ export class ConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.configService.list().subscribe(res => {
-      this.source.load(res.content.filter(i => i.status === 1));
+      this.source.load(res.content);
     });
   }
 
@@ -65,4 +69,27 @@ export class ConfigComponent implements OnInit {
       });
   }
 
+  onAdded(evt: any) {
+    this.configService.add(evt.newData)
+      .subscribe(res => {
+        evt.confirm.resolve();
+        this.toastrService.show('New token has been added successfully.', 'Successful !', { status: 'success' });
+      }, err => {
+        // tslint:disable-next-line: no-console
+        console.log(err);
+        this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
+      });
+  }
+
+  onDeleted(evt: any) {
+    this.configService.delete(evt.data.id)
+      .subscribe(res => {
+        evt.confirm.resolve();
+        this.toastrService.show('The token has been deleted successfully.', 'Successful !', { status: 'success' });
+      }, err => {
+        // tslint:disable-next-line: no-console
+        console.log(err);
+        this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
+      });
+  }
 }

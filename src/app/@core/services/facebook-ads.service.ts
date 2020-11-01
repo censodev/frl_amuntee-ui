@@ -5,6 +5,14 @@ import { Injectable } from '@angular/core';
 const AD_ACCOUT_STATUS = [
   { id: 1, title: 'ACTIVE' },
   { id: 2, title: 'DISABLED' },
+  { id: 3, title: 'UNSETTLED' },
+  { id: 7, title: 'PENDING_RISK_REVIEW' },
+  { id: 8, title: 'PENDING_SETTLEMENT' },
+  { id: 9, title: 'IN_GRACE_PERIOD' },
+  { id: 100, title: 'PENDING_CLOSURE' },
+  { id: 101, title: 'CLOSED' },
+  { id: 201, title: 'ANY_ACTIVE' },
+  { id: 202, title: 'ANY_CLOSED' },
 ];
 
 @Injectable({
@@ -18,7 +26,7 @@ export class FacebookAdsService {
     return this.http.get<any[]>(`${environment.apiUrl}/facebook/adaccounts`);
   }
 
-  getAccoutStatusDictionary() {
+  getAccountStatusDictionary() {
     return AD_ACCOUT_STATUS;
   }
 }

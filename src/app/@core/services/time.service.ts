@@ -10,9 +10,12 @@ export class TimeService {
   today() {
     const from = new Date();
     from.setHours(0, 0, 0, 0);
+    const to = new Date();
+    to.setDate(to.getDate() + 1);
+    to.setHours(0, 0, 0, 0);
     return {
       from: from,
-      to: new Date(),
+      to: to,
     };
   }
 

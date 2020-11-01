@@ -59,7 +59,7 @@ export class PagesComponent {
         hidden: !isAdmin,
       },
       {
-        title: 'Configs',
+        title: 'Facebook Tokens',
         icon: 'settings-2-outline',
         link: '/pages/config',
         hidden: !isAdmin,
