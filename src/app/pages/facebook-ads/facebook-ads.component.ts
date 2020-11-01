@@ -8,8 +8,12 @@ import { LocalDataSource } from 'ng2-smart-table';
   styleUrls: ['./facebook-ads.component.scss'],
 })
 export class FacebookAdsComponent implements OnInit {
-  summary: any[];
+  selectorStatus: any[];
+  selectedStatus = 9999;
+  limitMiniDashboard = 2;
+  miniDashboard: any[];
   source: any[];
+  displaySource: any[];
   settings = {
     mode: 'external',
     hideSubHeader: true,
@@ -90,6 +94,10 @@ export class FacebookAdsComponent implements OnInit {
   constructor(private facebookAdsService: FacebookAdsService) { }
 
   ngOnInit(): void {
+    this.selectorStatus = [
+      { id: this.selectedStatus, title: 'ALL' },
+      ...this.facebookAdsService.getAccountStatusDictionary(),
+    ];
     this.facebookAdsService.fetchAccounts().subscribe(
       res => {
         this.source = res
@@ -112,12 +120,10 @@ export class FacebookAdsComponent implements OnInit {
                 };
               }),
             ];
-          }, [])
-          .sort((a, b) => {
-            return a.account_status < b.account_status ? 1 : -1;
-          });
-        this.summary = this.facebookAdsService
-          .getAccountStatusDictionary().map(item => {
+          }, []);
+        this.onFiltered();
+        this.miniDashboard = this.facebookAdsService.getAccountStatusDictionary()
+          .map(item => {
             return {
               title: item.title,
               data: `${this.source.filter(i => i.account_status === item.id).length || 0}/${this.source.length}`,
@@ -128,4 +134,17 @@ export class FacebookAdsComponent implements OnInit {
       );
   }
 
+  loadMoreMiniDashboard() {
+    this.limitMiniDashboard = this.facebookAdsService.getAccountStatusDictionary().length;
+  }
+
+  onFiltered() {
+    if (this.facebookAdsService.getAccountStatusDictionary().some(i => i.id === this.selectedStatus)) {
+      this.displaySource = this.source.filter(i => i.account_status === this.selectedStatus);
+    } else {
+      this.displaySource = this.source.sort((a, b) => {
+        return a.account_status < b.account_status ? 1 : -1;
+      });
+    }
+  }
 }

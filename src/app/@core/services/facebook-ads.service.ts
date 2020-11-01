@@ -2,7 +2,7 @@ import { environment } from './../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-const AD_ACCOUT_STATUS = [
+const AD_ACCOUNT_STATUS = [
   { id: 1, title: 'ACTIVE' },
   { id: 2, title: 'DISABLED' },
   { id: 3, title: 'UNSETTLED' },
@@ -27,6 +27,6 @@ export class FacebookAdsService {
   }
 
   getAccountStatusDictionary() {
-    return AD_ACCOUT_STATUS;
+    return AD_ACCOUNT_STATUS;
   }
 }

@@ -1,5 +1,5 @@
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-import { NbCardModule, NbInputModule, NbIconModule } from '@nebular/theme';
+import { NbCardModule, NbInputModule, NbIconModule, NbSelectModule, NbButtonModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -18,6 +18,8 @@ import { SharedModule } from 'app/shared/shared.module';
     NbInputModule,
     NbIconModule,
     SharedModule,
+    NbSelectModule,
+    NbButtonModule,
   ],
 })
 export class FacebookAdsModule { }

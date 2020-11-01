@@ -1,19 +1,36 @@
 <div class="row">
-  <div *ngFor="let item of summary" class="col-md-6 col-sm-12">
-    <nb-card>
-      <nb-card-body>
-        <b>{{ item.title }}: {{ item.data }}</b>
-      </nb-card-body>
-    </nb-card>
+  <ng-container *ngFor="let item of miniDashboard; index as i">
+    <div *ngIf="i < limitMiniDashboard" class="col-md-6 col-sm-12">
+      <nb-card>
+        <nb-card-body>
+          <b>{{ item.title }}: {{ item.data }}</b>
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </ng-container>
+  <div class="col-12" *ngIf="limitMiniDashboard <= 2">
+    <a class="mb-3 text-center d-block load-more-link" (click)="loadMoreMiniDashboard()">
+      <nb-icon icon="sync-outline"></nb-icon> Load more
+    </a>
   </div>
 </div>
 <nb-card>
     <nb-card-header>Marketing ADs Accounts</nb-card-header>
   
     <nb-card-body>
+      <div class="row">
+        <div class="col-md-3 my-3">
+          <nb-select [(selected)]="selectedStatus" class="w-100">
+            <nb-option *ngFor="let status of selectorStatus" [value]="status.id">{{ status.title }}</nb-option>
+          </nb-select>
+        </div>
+        <div class="col-md-3 my-3">
+          <button nbButton status="success" (click)="onFiltered()">Filter</button>
+        </div>
+      </div>
       <ngx-data-table
         [settings]="settings"
-        [data]="source"
+        [data]="displaySource"
         [limit]="10"
       ></ngx-data-table>
     </nb-card-body>

@@ -4,25 +4,25 @@
     </nb-card-header>
     <nb-card-body>
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 my-1">
                 <label class="label">Store</label>
                 <nb-select [(selected)]="statisticService.storeSelectedId" class="w-100">
                     <nb-option selected [value]="0">All Stores</nb-option>
                     <nb-option *ngFor="let store of stores" [value]="store.id">{{ store.name }}</nb-option>
                 </nb-select>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 my-1">
                 <label class="label">Filter Options</label>
                 <nb-select [(selected)]="statisticService.filterOptionSelectedId" class="w-100">
                     <nb-option *ngFor="let filterOption of statisticService.filterOptions" [value]="filterOption.id">{{ filterOption.name }}</nb-option>
                 </nb-select>
             </div>
-            <div class="col-md-3" *ngIf="statisticService.filterOptionSelectedId === 5">
+            <div class="col-md-3 my-1" *ngIf="statisticService.filterOptionSelectedId === 5">
                 <label class="label">Custom Range</label>
                 <input class="w-100" [(ngModel)]="dateRange" nbInput placeholder="Range Picker" [nbDatepicker]="rangepicker">
                 <nb-rangepicker #rangepicker></nb-rangepicker>
             </div>
-            <div class="col-md-3 d-flex align-items-end">
+            <div class="col-md-3 my-1 d-flex align-items-end">
                 <button nbButton status="success" (click)="onSubmitted()">Filter</button>
             </div>
         </div>
