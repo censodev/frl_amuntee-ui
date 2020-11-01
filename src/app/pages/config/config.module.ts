@@ -1,3 +1,4 @@
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbCardModule, NbInputModule, NbButtonModule, NbIconModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,6 +16,7 @@ import { ConfigComponent } from './config.component';
     NbInputModule,
     NbButtonModule,
     NbIconModule,
+    Ng2SmartTableModule,
   ],
 })
 export class ConfigModule { }

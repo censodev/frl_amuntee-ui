@@ -11,6 +11,7 @@ import { Component, OnInit } from '@angular/core';
 export class ConfigComponent implements OnInit {
   source = new LocalDataSource();
   settings = {
+    hideSubHeader: true,
     actions: {
       delete: false,
       add: false,
@@ -32,16 +33,12 @@ export class ConfigComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
-      id: {
-        title: 'ID',
+      telegramBotToken: {
+        title: 'Telegram Bot Token',
         type: 'string',
       },
       facebookToken: {
         title: 'Facebook Token',
-        type: 'string',
-      },
-      telegramBotToken: {
-        title: 'Telegram Bot Token',
         type: 'string',
       },
     },
@@ -52,7 +49,7 @@ export class ConfigComponent implements OnInit {
 
   ngOnInit(): void {
     this.configService.list().subscribe(res => {
-      this.source.load(res.content);
+      this.source.load(res.content.filter(i => i.status === 1));
     });
   }
 
