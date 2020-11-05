@@ -1,5 +1,5 @@
 import { LocalDataSource } from 'ng2-smart-table';
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChanges, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'ngx-data-table',
@@ -10,6 +10,7 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data: any[];
   @Input() settings: any;
   @Input() limit = 5;
+  @Output() rowSelect = new EventEmitter();
   source = new LocalDataSource();
   page = 0;
 
@@ -32,5 +33,9 @@ export class DataTableComponent implements OnInit, OnChanges {
 
   reload() {
     this.source.load(this.data.slice(0, (this.page + 1) * this.limit));
+  }
+
+  onRowSelected(evt: any) {
+    this.rowSelect.emit(evt);
   }
 }

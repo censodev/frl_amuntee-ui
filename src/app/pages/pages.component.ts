@@ -56,7 +56,7 @@ export class PagesComponent {
         title: 'Facebook Ads',
         icon: 'facebook-outline',
         link: '/pages/facebook-ads',
-        hidden: !isAdmin,
+        // hidden: !isAdmin,
       },
       {
         title: 'Facebook Tokens',

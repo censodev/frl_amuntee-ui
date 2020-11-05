@@ -29,7 +29,7 @@ const routes: Routes = [{
     },
     {
       path: 'facebook-ads',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       loadChildren: () => import('./facebook-ads/facebook-ads.module')
         .then(m => m.FacebookAdsModule),
     },

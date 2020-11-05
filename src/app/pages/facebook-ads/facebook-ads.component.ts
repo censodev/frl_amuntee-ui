@@ -1,11 +1,19 @@
+import { AuthService } from './../../auth/auth.service';
 import { FacebookAdsService } from './../../@core/services/facebook-ads.service';
 import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'ngx-facebook-ads',
   templateUrl: './facebook-ads.component.html',
   styleUrls: ['./facebook-ads.component.scss'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class FacebookAdsComponent implements OnInit {
   selectorStatus: any[];
@@ -14,84 +22,12 @@ export class FacebookAdsComponent implements OnInit {
   miniDashboard: any[];
   source: any[];
   displaySource: any[];
-  settings = {
-    mode: 'external',
-    hideSubHeader: true,
-    pager: { display: false },
-    actions: {
-      add: false,
-      delete: false,
-      edit: false,
-    },
-    rowClassFunction: row => {
-      switch (row.data.status) {
-        case 'ACTIVE':
-          return 'acc-status-active';
-        case 'DISABLED':
-          return 'acc-status-disabled';
-      }
-    },
-    columns: {
-      id: {
-        title: 'ID',
-        type: 'string',
-      },
-      name: {
-        title: 'Name',
-        type: 'string',
-      },
-      status: {
-        title: 'Status',
-        type: 'string',
-      },
-      age: {
-        title: 'Age',
-        type: 'number',
-      },
-      amount_spent: {
-        title: 'Amount Spent',
-        type: 'number',
-      },
-      spend_cap: {
-        title: 'Spend Cap',
-        type: 'number',
-      },
-      balance: {
-        title: 'Balance',
-        type: 'number',
-      },
-      currency: {
-        title: 'Currency',
-        type: 'string',
-      },
-      adsets: {
-        title: 'AD Set',
-        type: 'number',
-      },
-      campaigns: {
-        title: 'Camps',
-        type: 'number',
-      },
-      is_prepay_account: {
-        title: 'Pre Pay',
-        type: 'boolean',
-      },
-      funding: {
-        title: 'Funding',
-        type: 'string',
-      },
-      business_id: {
-        title: 'Business ID',
-        type: 'string',
-      },
-      business_name: {
-        title: 'Business',
-        type: 'string',
-      },
-    },
-  };
+  columnsToDisplay = ['arrow', 'id', 'name', 'status', 'age', 'amount_spent', 'spend_cap', 'balance', 'currency', 'adsets', 'campaigns_count', 'is_prepay_account', 'funding', 'business_id', 'business_name'];
+  headers = ['', 'ID', 'Name', 'Status', 'Age', 'Amount Spent', 'Spend Cap', 'Balance', 'Currency', 'AD Set', 'Camps', 'Prepay', 'Funding', 'Business ID', 'Business'];
+  childColumnsToDisplay = ['id', 'name', 'spend', 'date_start', 'date_stop'];
 
-  constructor(private facebookAdsService: FacebookAdsService) { }
+  constructor(private facebookAdsService: FacebookAdsService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.selectorStatus = [
@@ -113,7 +49,7 @@ export class FacebookAdsComponent implements OnInit {
                     .getAccountStatusDictionary()
                     .find(i => i.id === item.account_status)?.title,
                   adsets: item.adsets?.data.length || 0,
-                  campaigns: item.campaigns?.data.length || 0,
+                  campaigns_count: item.campaigns?.data.length || 0,
                   business_id: item.business?.id,
                   business_name: item.business?.name,
                   funding: item.funding_source_details?.display_string,
@@ -146,5 +82,22 @@ export class FacebookAdsComponent implements OnInit {
         return a.account_status < b.account_status ? 1 : -1;
       });
     }
+    if (!this.authService.isAdmin()) {
+      this.displaySource = this.displaySource
+        .filter(acc => {
+          return acc.campaigns?.data.some(camp => {
+            return this.getUserCodeFromCamp(camp) === this.authService.getCode();
+          });
+        });
+      this.displaySource.forEach(acc => {
+        acc.campaigns.data = acc.campaigns.data
+          .filter(camp => this.getUserCodeFromCamp(camp) === this.authService.getCode());
+      });
+    }
+    // console.log(this.displaySource)
+  }
+
+  getUserCodeFromCamp(camp) {
+    return camp.name?.split('-')[2]?.trim().substring(0, 2);
   }
 }

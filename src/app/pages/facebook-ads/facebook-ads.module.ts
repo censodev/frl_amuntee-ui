@@ -1,3 +1,4 @@
+import { MatTableModule } from '@angular/material/table';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { NbCardModule, NbInputModule, NbIconModule, NbSelectModule, NbButtonModule } from '@nebular/theme';
 import { NgModule } from '@angular/core';
@@ -20,6 +21,7 @@ import { SharedModule } from 'app/shared/shared.module';
     SharedModule,
     NbSelectModule,
     NbButtonModule,
+    MatTableModule,
   ],
 })
 export class FacebookAdsModule { }
