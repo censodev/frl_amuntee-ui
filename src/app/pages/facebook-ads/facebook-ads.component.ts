@@ -24,7 +24,7 @@ export class FacebookAdsComponent implements OnInit {
   displaySource: any[];
   columnsToDisplay = ['arrow', 'id', 'name', 'status', 'age', 'amount_spent', 'spend_cap', 'balance', 'currency', 'adsets', 'campaigns_count', 'is_prepay_account', 'funding', 'business_id', 'business_name'];
   headers = ['', 'ID', 'Name', 'Status', 'Age', 'Amount Spent', 'Spend Cap', 'Balance', 'Currency', 'AD Set', 'Camps', 'Prepay', 'Funding', 'Business ID', 'Business'];
-  childColumnsToDisplay = ['id', 'name', 'spend', 'date_start', 'date_stop'];
+  childColumnsToDisplay = ['id', 'name', 'status', 'spend', 'date_start', 'date_stop'];
 
   constructor(private facebookAdsService: FacebookAdsService,
               private authService: AuthService) { }
