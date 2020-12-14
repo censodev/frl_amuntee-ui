@@ -2,13 +2,13 @@
   <nb-card-header> Products </nb-card-header>
 
   <nb-card-body>
-    <ng2-smart-table
-      *ngIf="source"
+    <ngx-data-table
       [settings]="settings"
-      [source]="source"
-      (edit)="onEdited($event)"
-      (create)="onAdded()"
+      [data]="source"
+      [limit]="10"
+      (edited)="onEdited($event)"
+      (created)="onAdded()"
     >
-    </ng2-smart-table>
+    </ngx-data-table>
   </nb-card-body>
 </nb-card>

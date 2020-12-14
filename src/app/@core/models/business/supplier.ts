@@ -6,4 +6,8 @@ export class Supplier {
     address: string;
     phone: string;
     status: number;
+
+    constructor(id?: number) {
+        this.id = id;
+    }
 }

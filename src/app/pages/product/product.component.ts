@@ -1,8 +1,8 @@
+import { Product } from './../../@core/models/business/product';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { ProductService } from './../../@core/services/product.service';
 import { Component, OnInit } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
 
 @Component({
   selector: 'ngx-product',
@@ -13,6 +13,7 @@ export class ProductComponent implements OnInit {
   settings = {
     mode: 'external',
     // hideSubHeader: true,
+    pager: { display: false },
     actions: {
       // add: false,
       delete: false,
@@ -32,18 +33,19 @@ export class ProductComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
+      picture: {
+        title: 'Picture',
+        type: 'html',
+        valuePrepareFunction: (picture: string) => { return `<img class="w-100" src="${picture}" />`; },
+      },
       code: {
         title: 'Code',
         type: 'string',
       },
-      name: {
-        title: 'Name',
+      title: {
+        title: 'Title',
         type: 'string',
       },
-      // type: {
-      //   title: 'Type',
-      //   type: 'string',
-      // },
       baseCost: {
         title: 'Base Cost',
         type: 'string',
@@ -52,24 +54,38 @@ export class ProductComponent implements OnInit {
         title: 'Supplier',
         type: 'string',
       },
+      vendor: {
+        title: 'Vendor',
+        type: 'string',
+      },
+      store: {
+        title: 'Store',
+        type: 'string',
+      },
+      status: {
+        title: 'Status',
+        type: 'string',
+      },
     },
   };
 
-  source: LocalDataSource = new LocalDataSource();
+  source: any[];
 
   constructor(private productService: ProductService,
               private router: Router) { }
 
   ngOnInit(): void {
-    this.productService.listProducts().subscribe(res => {
+    this.productService.listProducts(10000000).subscribe(res => {
       const data = res.content.map(i => {
         return {
           ...i,
-          // type: i.type.name,
-          supplier: i.supplier.name,
+          supplier: i.supplier?.name,
+          store: i.store.name,
+          picture: i.images[0]?.src,
         };
       });
-      this.source.load(data);
+      console.log(data);
+      this.source = data;
     });
   }
 
