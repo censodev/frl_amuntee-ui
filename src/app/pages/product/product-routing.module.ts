@@ -1,4 +1,3 @@
-import { ProductTypeComponent } from './product-type/product-type.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductComponent } from './product.component';
@@ -14,10 +13,6 @@ const routes: Routes = [
     path: 'add',
     component: ProductAddComponent,
   },
-  // {
-  //   path: 'type',
-  //   component: ProductTypeComponent,
-  // },
   {
     path: ':id',
     component: ProductUpdateComponent,
