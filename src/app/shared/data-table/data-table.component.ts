@@ -10,9 +10,11 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data: any[];
   @Input() settings: any;
   @Input() limit = 5;
-  @Output() rowSelect = new EventEmitter();
+  @Output() rowSelected = new EventEmitter();
+  @Output() edited = new EventEmitter();
+  @Output() created = new EventEmitter();
   source = new LocalDataSource();
-  page = 0;
+  page = 1;
 
   constructor() { }
 
@@ -32,10 +34,22 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   reload() {
-    this.source.load(this.data.slice(0, (this.page + 1) * this.limit));
+    this.source.load(this.data.slice(0, this.page * this.limit));
   }
 
   onRowSelected(evt: any) {
-    this.rowSelect.emit(evt);
+    this.rowSelected.emit(evt);
+  }
+
+  onEdited(evt: any) {
+    this.edited.emit(evt);
+  }
+
+  onAdded() {
+    this.created.emit();
+  }
+
+  hiddenLoadMore() {
+    return this.page * this.limit >= this.data?.length;
   }
 }
