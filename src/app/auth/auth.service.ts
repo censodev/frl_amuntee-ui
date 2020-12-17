@@ -18,6 +18,7 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/login`, rq)
       .pipe(
         tap(res => {
+          this.cookieService.set('uid', res.user.uid);
           this.cookieService.set('token', res.token);
           this.cookieService.set('fullname', res.user.fullname);
           this.cookieService.set('code', res.user.code);
@@ -53,6 +54,10 @@ export class AuthService {
 
   getCode(): string {
     return this.cookieService.get('code');
+  }
+
+  getUid(): number {
+    return Number.parseInt(this.cookieService.get('uid'));
   }
 
   requestPassword(email: string): Observable<any> {
