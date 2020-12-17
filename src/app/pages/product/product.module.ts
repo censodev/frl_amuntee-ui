@@ -10,10 +10,16 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ProductAddComponent } from './product-add/product-add.component';
 import { ProductUpdateComponent } from './product-update/product-update.component';
 import { CKEditorModule } from 'ckeditor4-angular';
+import { ProductVariantAddComponent } from './product-variant-add/product-variant-add.component';
+import { ProductVariantUpdateComponent } from './product-variant-update/product-variant-update.component';
+import { ProductTemplateComponent } from './product-template/product-template.component';
+import { ProductTemplateAddComponent } from './product-template-add/product-template-add.component';
+import { ProductTemplateUpdateComponent } from './product-template-update/product-template-update.component';
+import { NgpImagePickerModule } from 'ngp-image-picker';
 
 
 @NgModule({
-  declarations: [ProductComponent, ProductAddComponent, ProductUpdateComponent],
+  declarations: [ProductComponent, ProductAddComponent, ProductUpdateComponent, ProductVariantAddComponent, ProductVariantUpdateComponent, ProductTemplateComponent, ProductTemplateAddComponent, ProductTemplateUpdateComponent],
   imports: [
     CommonModule,
     ProductRoutingModule,
@@ -27,6 +33,7 @@ import { CKEditorModule } from 'ckeditor4-angular';
     NbSelectModule,
     SharedModule,
     CKEditorModule,
+    NgpImagePickerModule,
   ],
 })
 export class ProductModule { }

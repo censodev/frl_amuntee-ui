@@ -47,7 +47,7 @@ const routes: Routes = [{
     },
     {
       path: 'product',
-      canActivate: [AdminGuard],
+      // canActivate: [AdminGuard],
       loadChildren: () => import('./product/product.module')
         .then(m => m.ProductModule),
     },

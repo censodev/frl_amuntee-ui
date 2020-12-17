@@ -5,45 +5,65 @@
     <nb-card-body>
         <form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="row">
             <div class="form-group col-md-6 col-sm-12">
-                <label class="label" for="">Product Name</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="product.name" name="name" required #name="ngModel" placeholder="Product Name">
-                <p class="caption status-danger" *ngIf="name.touched && name.errors?.required">
-                    Product Name is required!
+                <label class="label" for="">Title</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.title" name="title" required #title="ngModel" placeholder="Title">
+                <p class="caption status-danger" *ngIf="title.touched && title.errors?.required">
+                    Title is required!
                 </p>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Template</label>
+                <nb-select *ngIf="product.productTemplate" [(selected)]="product.productTemplate.id" class="w-100">
+                    <nb-option *ngFor="let template of templates" [value]="template.id">{{ template.title }}</nb-option>
+                </nb-select>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Store</label>
+                <nb-select *ngIf="product.store" [(selected)]="product.store.id" class="w-100">
+                    <nb-option *ngFor="let store of stores" [value]="store.id">{{ store.name }}</nb-option>
+                </nb-select>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="label" for="">Product Type</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.productType" name="productType" #productType="ngModel" placeholder="Product Type">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="label" for="">Tags</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.tags" name="tags" #tags="ngModel" placeholder="Tags">
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Status</label>
+                <nb-select *ngIf="product.status" [(selected)]="product.status" class="w-100">                    
+                    <nb-option value="active">Active</nb-option>
+                    <nb-option value="archived">Archived</nb-option>
+                    <nb-option value="draft">Draft</nb-option>
+                </nb-select>
+            </div>
+            <div class="form-group col-md-3 col-sm-6">
+                <label class="label" for="">Published Scope</label>
+                <nb-select *ngIf="product.publishedScope" [(selected)]="product.publishedScope" class="w-100">
+                    <nb-option value="web">Web</nb-option>
+                    <nb-option value="global">Global</nb-option>
+                </nb-select>
             </div>
             <div class="form-group col-md-6 col-sm-12">
-                <label class="label" for="">Product Code</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="product.code" name="code" required #code="ngModel" placeholder="Product Code">
-                <p class="caption status-danger" *ngIf="code.touched && code.errors?.required">
-                    Product Code is required!
-                </p>
+                <label class="label" for="">Vendor</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="product.vendor" name="vendor" #vendor="ngModel" placeholder="Vendor">
             </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Base Cost</label>
-                <input nbInput fullWidth type="number" step="0.01" [(ngModel)]="product.baseCost" name="baseCost" required #baseCost="ngModel" placeholder="Base Cost">
-                <p class="caption status-danger" *ngIf="baseCost.touched && baseCost.errors?.required">
-                    Base Cost is required!
-                </p>
+            <div class="form-group col-md-12">
+                <label class="label" for="">Description</label>
+                <ckeditor [config]="ckeditorConfig" [(ngModel)]="product.bodyHtml" [ngModelOptions]="{standalone: true}"></ckeditor>
             </div>
-            <!-- <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Type</label>
-                <nb-select *ngIf="product.type" [(selected)]="product.type.id" class="w-100">
-                    <nb-option *ngFor="let type of types" [value]="type.id">{{ type.name }}</nb-option>
-                </nb-select>
-            </div> -->
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Supplier</label>
-                <nb-select *ngIf="product.supplier" [(selected)]="product.supplier.id" class="w-100">
-                    <nb-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</nb-option>
-                </nb-select>
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Shipping Time</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="product.shippingTime" name="shippingTime" #shippingTime="ngModel" placeholder="Shipping Time">
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Processing Time</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="product.processingTime" name="processingTime" #processingTime="ngModel" placeholder="Processing Time">
+            <div class="form-group col-md-12">
+                <label class="label" for="">Variants</label>
+                <ngx-data-table
+                    [settings]="variantsSettings"
+                    [data]="product.variants"
+                    [limit]="5"
+                    (createConfirm)="variantAdded($event)"
+                    (editConfirm)="variantEdited($event)"
+                >
+                </ngx-data-table>
             </div>
             <div class="col-md-12">
                 <button [disabled]="!formAdd.form.valid" nbButton status="success">Update</button>

@@ -10,9 +10,13 @@ export class DataTableComponent implements OnInit, OnChanges {
   @Input() data: any[];
   @Input() settings: any;
   @Input() limit = 5;
-  @Output() rowSelected = new EventEmitter();
-  @Output() edited = new EventEmitter();
-  @Output() created = new EventEmitter();
+
+  @Output() rowSelect = new EventEmitter();
+  @Output() edit = new EventEmitter();
+  @Output() create = new EventEmitter();
+  @Output() editConfirm = new EventEmitter();
+  @Output() createConfirm = new EventEmitter();
+  
   source = new LocalDataSource();
   page = 1;
 
@@ -38,18 +42,26 @@ export class DataTableComponent implements OnInit, OnChanges {
   }
 
   onRowSelected(evt: any) {
-    this.rowSelected.emit(evt);
+    this.rowSelect.emit(evt);
   }
 
   onEdited(evt: any) {
-    this.edited.emit(evt);
+    this.edit.emit(evt);
   }
 
-  onAdded() {
-    this.created.emit();
+  onCreated(evt: any) {
+    this.create.emit(evt);
+  }
+
+  onEditConfirmed(evt: any) {
+    this.editConfirm.emit(evt);
+  }
+
+  onCreateConfirmed(evt: any) {
+    this.createConfirm.emit(evt);
   }
 
   hiddenLoadMore() {
-    return this.page * this.limit >= this.data?.length;
+    return (this.page * this.limit >= this.data?.length) || !this.data;
   }
 }

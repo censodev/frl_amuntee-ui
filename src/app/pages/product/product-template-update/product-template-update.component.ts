@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { NbToastrService } from '@nebular/theme';
 import { ProductService } from 'app/@core/services/product.service';
 import { SupplierService } from 'app/@core/services/supplier.service';
+import { ImagePickerConf } from 'ngp-image-picker';
 
 @Component({
   selector: 'ngx-product-template-update',
@@ -14,6 +15,12 @@ import { SupplierService } from 'app/@core/services/supplier.service';
 export class ProductTemplateUpdateComponent implements OnInit {
   suppliers: Supplier[];
   productTemplate = new ProductTemplate();
+  imagePickerConf: ImagePickerConf = {
+    borderRadius: "4px",
+    language: "en",
+    width: "100%",
+    height: "240px",
+  };
 
   constructor(private productService: ProductService,
               private toastrService: NbToastrService,
@@ -43,5 +50,10 @@ export class ProductTemplateUpdateComponent implements OnInit {
         // tslint:disable-next-line: no-console
         console.log(err);
       });
+  }
+
+  onImageChanged(evt: any) {
+    this.productTemplate.design = evt;
+    console.log(this.productTemplate)
   }
 }

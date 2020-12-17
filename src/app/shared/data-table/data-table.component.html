@@ -5,7 +5,10 @@
         [source]="source"
         (rowSelect)="onRowSelected($event)"
         (edit)="onEdited($event)"
-        (create)="onAdded()">
+        (create)="onCreated($event)"
+        (editConfirm)="onEditConfirmed($event)"
+        (createConfirm)="onCreateConfirmed($event)"
+    >
     </ng2-smart-table>
     <a *ngIf="!hiddenLoadMore()" class="mt-3 text-center d-block load-more-link" (click)="loadMore()">
         <nb-icon icon="sync-outline"></nb-icon> Load more

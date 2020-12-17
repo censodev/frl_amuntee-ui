@@ -29,4 +29,12 @@ export class StoreService {
   addStore(store: Store): Observable<Store> {
     return this.http.post<Store>(`${BASE_URL}`, store);
   }
+
+  updateStore(store: Store): Observable<Store> {
+    return this.http.put<Store>(`${BASE_URL}/${store.id}`, store);
+  }
+
+  findOne(id: number): Observable<Store> {
+    return this.http.get<Store>(`${BASE_URL}/${id}`);
+  }
 }

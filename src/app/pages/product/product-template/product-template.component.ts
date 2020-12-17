@@ -1,3 +1,4 @@
+import { AuthService } from 'app/auth/auth.service';
 import { Router } from '@angular/router';
 import { ProductService } from 'app/@core/services/product.service';
 import { Component, OnInit } from '@angular/core';
@@ -13,8 +14,9 @@ export class ProductTemplateComponent implements OnInit {
     // hideSubHeader: true,
     pager: { display: false },
     actions: {
-      // add: false,
+      add: false,
       delete: false,
+      edit: false,
     },
     add: {
       addButtonContent: '<i class="nb-plus"></i>',
@@ -31,6 +33,11 @@ export class ProductTemplateComponent implements OnInit {
       confirmDelete: true,
     },
     columns: {
+      design: {
+        title: 'Design',
+        type: 'html',
+        valuePrepareFunction: (design: string) => `<img width="80" alt="" src="${design}" />`,
+      },
       title: {
         title: 'Title',
         type: 'string',
@@ -57,9 +64,12 @@ export class ProductTemplateComponent implements OnInit {
   source: any[];
 
   constructor(private productService: ProductService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.settings.actions.edit = this.authService.isAdmin();
+    this.settings.actions.add = this.authService.isAdmin();
     this.productService.listTemplates().subscribe(res => {
       this.source = res.content;
     });

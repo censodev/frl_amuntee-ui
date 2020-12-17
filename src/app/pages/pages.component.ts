@@ -82,20 +82,19 @@ export class PagesComponent {
         hidden: !isAdmin,
       },
       {
-        title: 'Products',
+        title: 'Catalog',
         icon: 'archive-outline',
         link: '/pages/product',
-        // children: [
-        //   {
-        //     title: 'List',
-        //     link: '/pages/product',
-        //   },
-        //   {
-        //     title: 'Product Types',
-        //     link: '/pages/product/type',
-        //   },
-        // ],
-        hidden: !isAdmin,
+        children: [
+          {
+            title: 'Products',
+            link: '/pages/product',
+          },
+          {
+            title: 'Templates',
+            link: '/pages/product/template',
+          },
+        ],
       },
       {
         title: 'ACCOUNT',

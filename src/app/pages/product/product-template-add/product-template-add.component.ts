@@ -48,7 +48,7 @@ export class ProductTemplateAddComponent implements OnInit {
   }
 
   onImageChanged(evt: any) {
-    console.log(evt);
-    // this.fileService.upload(evt, this.fileService.generateFilename('png')).subscribe(res => console.log(res), err => console.error(err));
+    this.productTemplate.design = evt;
+    console.log(this.productTemplate)
   }
 }

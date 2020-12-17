@@ -2,47 +2,57 @@
     <nb-card-header>
         Update Product Template
     </nb-card-header>
-    <nb-card-body>
-        <form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="row">
-            <div class="form-group col-md-6 col-sm-12">
-                <label class="label" for="">Title</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.title" name="title" required #title="ngModel" placeholder="Title">
-                <p class="caption status-danger" *ngIf="title.touched && title.errors?.required">
-                    Title is required!
-                </p>
-            </div>
-            <div class="form-group col-md-6 col-sm-12">
-                <label class="label" for="">Product Code</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.code" name="code" required #code="ngModel" placeholder="Product Code">
-                <p class="caption status-danger" *ngIf="code.touched && code.errors?.required">
-                    Product Code is required!
-                </p>
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Base Cost</label>
-                <input nbInput fullWidth type="number" step="0.01" [(ngModel)]="productTemplate.baseCost" name="baseCost" required #baseCost="ngModel" placeholder="Base Cost">
-                <p class="caption status-danger" *ngIf="baseCost.touched && baseCost.errors?.required">
-                    Base Cost is required!
-                </p>
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Supplier</label>
-                <nb-select *ngIf="productTemplate.supplier" [(selected)]="productTemplate.supplier.id" class="w-100">
-                    <nb-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</nb-option>
-                </nb-select>
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Shipping Time</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.shippingTime" name="shippingTime" #shippingTime="ngModel" placeholder="Shipping Time">
-            </div>
-            <div class="form-group col-md-3 col-sm-6">
-                <label class="label" for="">Processing Time</label>
-                <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.processingTime" name="processingTime" #processingTime="ngModel" placeholder="Processing Time">
-            </div>
-            <div class="col-md-12">
-                <button [disabled]="!formAdd.form.valid" nbButton status="success">Submit</button>
+    <nb-card-body class="row">
+        <form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="col-md-6">
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="label" for="">Title</label>
+                    <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.title" name="title" required #title="ngModel" placeholder="Title">
+                    <p class="caption status-danger" *ngIf="title.touched && title.errors?.required">
+                        Title is required!
+                    </p>
+                </div>
+                <div class="form-group col-md-12">
+                    <label class="label" for="">Product Code</label>
+                    <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.code" name="code" required #code="ngModel" placeholder="Product Code">
+                    <p class="caption status-danger" *ngIf="code.touched && code.errors?.required">
+                        Product Code is required!
+                    </p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="label" for="">Base Cost</label>
+                    <input nbInput fullWidth type="number" step="0.01" [(ngModel)]="productTemplate.baseCost" name="baseCost" required #baseCost="ngModel" placeholder="Base Cost">
+                    <p class="caption status-danger" *ngIf="baseCost.touched && baseCost.errors?.required">
+                        Base Cost is required!
+                    </p>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="label" for="">Supplier</label>
+                    <nb-select *ngIf="productTemplate.supplier" [(selected)]="productTemplate.supplier.id" class="w-100">
+                        <nb-option *ngFor="let supplier of suppliers" [value]="supplier.id">{{ supplier.name }}</nb-option>
+                    </nb-select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="label" for="">Shipping Time</label>
+                    <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.shippingTime" name="shippingTime" #shippingTime="ngModel" placeholder="Shipping Time">
+                </div>
+                <div class="form-group col-md-6">
+                    <label class="label" for="">Processing Time</label>
+                    <input nbInput fullWidth type="text" [(ngModel)]="productTemplate.processingTime" name="processingTime" #processingTime="ngModel" placeholder="Processing Time">
+                </div>
+                <div class="col-md-12">
+                    <button [disabled]="!formAdd.form.valid" nbButton status="success">Submit</button>
+                </div>
             </div>
         </form>
+        <div class="form-group col-md-6 col-sm-12">
+            <label class="label" for="">Design</label>
+            <ngp-image-picker *ngIf="productTemplate"
+                [_imageSrc]="productTemplate.design"
+                [_config]="imagePickerConf"
+                ($imageChanged)="onImageChanged($event)"
+            ></ngp-image-picker>
+        </div>
     </nb-card-body>
 </nb-card>
 

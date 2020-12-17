@@ -1,3 +1,4 @@
+import { AuthService } from 'app/auth/auth.service';
 import { Product } from './../../@core/models/business/product';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -36,22 +37,14 @@ export class ProductComponent implements OnInit {
       picture: {
         title: 'Picture',
         type: 'html',
-        valuePrepareFunction: (picture: string) => { return `<img class="w-100" src="${picture}" />`; },
-      },
-      code: {
-        title: 'Code',
-        type: 'string',
+        valuePrepareFunction: (picture: string) => `<img width="80" src="${picture}" />`,
       },
       title: {
         title: 'Title',
         type: 'string',
       },
-      baseCost: {
-        title: 'Base Cost',
-        type: 'string',
-      },
-      supplier: {
-        title: 'Supplier',
+      template: {
+        title: 'Template',
         type: 'string',
       },
       vendor: {
@@ -72,16 +65,18 @@ export class ProductComponent implements OnInit {
   source: any[];
 
   constructor(private productService: ProductService,
-              private router: Router) { }
+              private router: Router,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.productService.listProducts(10000000).subscribe(res => {
+    const createdBy = this.authService.isAdmin() ? 0 : this.authService.getUid();
+    this.productService.listProducts(createdBy, 10000000).subscribe(res => {
       const data = res.content.map(i => {
         return {
           ...i,
-          supplier: i.supplier?.name,
           store: i.store.name,
           picture: i.images[0]?.src,
+          template: i.productTemplate?.code,
         };
       });
       console.log(data);

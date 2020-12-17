@@ -2,17 +2,10 @@ import { Store } from './store';
 import { Supplier } from './supplier';
 export class Product {
     id: number;
-    code: string;
-    name?: string;
-    baseCost: number;
-    supplier: Supplier;
-    shippingTime?: any;
-    processingTime?: any;
     createdAt?: any;
     updatedAt?: any;
-    createdBy?: any;
-    updatedBy?: any;
-    status: any;
+    createdBy?: number;
+    status: string;
     bodyHtml: string;
     productType: string;
     publishedAt?: any;
@@ -24,6 +17,7 @@ export class Product {
     store: Store;
     shopifyId: number;
     images?: ProductImage[];
+    productTemplate: ProductTemplate;
 }
 
 export class ProductVariant {
@@ -38,6 +32,9 @@ export class ProductVariant {
     title: string;
     updatedAt: string;
     product: Product;
+    option1: string;
+    option2: string;
+    option3: string;
 }
 
 export class ProductImage {
@@ -49,4 +46,16 @@ export class ProductImage {
     height: number;
     attachment: string;
     product: Product;
+}
+
+export class ProductTemplate {
+    id: number;
+    code: string;
+    title: string;
+    baseCost: number;
+    supplier: Supplier;
+    shippingTime?: any;
+    processingTime?: any;
+    status: number;
+    design: string;
 }
