@@ -1,0 +1,15 @@
+<nb-card>
+    <nb-card-header> Product Templates </nb-card-header>
+  
+    <nb-card-body>
+      <ngx-data-table
+        [settings]="settings"
+        [data]="source"
+        [limit]="10"
+        (edit)="onEdited($event)"
+        (create)="onAdded()"
+      >
+      </ngx-data-table>
+    </nb-card-body>
+  </nb-card>
+  
