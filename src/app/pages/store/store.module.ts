@@ -8,10 +8,11 @@ import { NbButtonModule, NbCardModule, NbIconModule, NbInputModule } from '@nebu
 import { ThemeModule } from 'app/@theme/theme.module';
 import { StoreAddComponent } from './store-add/store-add.component';
 import { FormsModule } from '@angular/forms';
+import { StoreUpdateComponent } from './store-update/store-update.component';
 
 
 @NgModule({
-  declarations: [StoreComponent, StoreAddComponent],
+  declarations: [StoreComponent, StoreAddComponent, StoreUpdateComponent],
   imports: [
     CommonModule,
     FormsModule,

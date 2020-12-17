@@ -1,3 +1,4 @@
+import { StoreUpdateComponent } from './store-update/store-update.component';
 import { StoreAddComponent } from './store-add/store-add.component';
 import { StoreComponent } from './store.component';
 import { NgModule } from '@angular/core';
@@ -11,6 +12,10 @@ const routes: Routes = [
   {
     path: 'add',
     component: StoreAddComponent,
+  },
+  {
+    path: ':id',
+    component: StoreUpdateComponent,
   },
 ];
 

@@ -1,3 +1,4 @@
+import { NbToastrService } from '@nebular/theme';
 import { Router } from '@angular/router';
 import { StoreService } from './../../@core/services/store.service';
 import { Component, OnInit } from '@angular/core';
@@ -68,5 +69,9 @@ export class StoreComponent implements OnInit {
 
   onAdded() {
     this.router.navigate(['/pages/store/add']);
+  }
+
+  onEdited(evt: any) {
+    this.router.navigate(['/pages/store', evt.data.id]);
   }
 }
