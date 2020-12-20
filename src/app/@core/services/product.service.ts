@@ -1,4 +1,4 @@
-import { ProductTemplate } from './../models/business/product';
+import { ProductTemplate, ProductImage } from './../models/business/product';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
@@ -63,5 +63,21 @@ export class ProductService {
 
   updateTemplate(template: ProductTemplate): Observable<ProductTemplate> {
     return this.http.put<ProductTemplate>(`${BASE_URL}/template/${template.id}`, template);
+  }
+
+  saveImage(src: string, shopifyProductId: number, storeId: number): Observable<ProductImage> {
+    return this.http.post<ProductImage>(`${BASE_URL}/image`, {
+      src: src,
+      shopifyProductId: shopifyProductId,
+      storeId: storeId,
+    });
+  }
+
+  deleteImage(id: number, shopifyProductId: number, storeId: number): Observable<any> {
+    const params = new HttpParams()
+      .set('id', id.toString())
+      .set('shopifyProductId', shopifyProductId.toString())
+      .set('storeId', storeId.toString());
+    return this.http.delete(`${BASE_URL}/image`, { params: params });
   }
 }

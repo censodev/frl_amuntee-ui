@@ -50,6 +50,12 @@
                 <label class="label" for="">Vendor</label>
                 <input nbInput fullWidth type="text" [(ngModel)]="product.vendor" name="vendor" #vendor="ngModel" placeholder="Vendor">
             </div>
+            <!-- <div class="form-group col-md-12">
+                <label class="label" for="">Images</label>
+                <ngx-image-grid-picker
+                    [(images)]="product.images"
+                ></ngx-image-grid-picker>
+            </div> -->
             <div class="form-group col-md-12">
                 <label class="label" for="">Description</label>
                 <ckeditor [config]="ckeditorConfig" [(ngModel)]="product.bodyHtml" [ngModelOptions]="{standalone: true}"></ckeditor>

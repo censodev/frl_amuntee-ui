@@ -5,8 +5,6 @@ import { NbToastrService } from '@nebular/theme';
 import { ProductService } from './../../../@core/services/product.service';
 import { Product, ProductTemplate } from './../../../@core/models/business/product';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Supplier } from 'app/@core/models/business/supplier';
-import { SupplierService } from 'app/@core/services/supplier.service';
 import { StoreService } from 'app/@core/services/store.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class ProductAddComponent implements OnInit {
   stores: Store[];
   templates: ProductTemplate[];
   ckeditorConfig = {
-    height: '500px',
+    height: '400px',
   };
   variantsSettings = {
     pager: { display: false },

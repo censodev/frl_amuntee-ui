@@ -1,3 +1,4 @@
+import { FileService } from './../../../@core/services/file.service';
 import { StoreService } from './../../../@core/services/store.service';
 import { Product, ProductTemplate } from './../../../@core/models/business/product';
 import { Component, OnInit } from '@angular/core';
@@ -7,6 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Supplier } from 'app/@core/models/business/supplier';
 import { SupplierService } from 'app/@core/services/supplier.service';
 import { Store } from 'app/@core/models/business/store';
+import { ImagePickerConf } from 'ngp-image-picker';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: 'ngx-product-update',
@@ -18,7 +21,7 @@ export class ProductUpdateComponent implements OnInit {
   stores: Store[];
   templates: ProductTemplate[];
   ckeditorConfig = {
-    height: '500px',
+    height: '400px',
   };
   variantsSettings = {
     pager: { display: false },
@@ -77,7 +80,8 @@ export class ProductUpdateComponent implements OnInit {
               private toastrService: NbToastrService,
               private route: ActivatedRoute,
               private storeService: StoreService,
-              private router: Router) { }
+              private router: Router,
+              private fileService: FileService) { }
 
   ngOnInit(): void {
     this.storeService.listStores(999999).subscribe(res => this.stores = res.content);
@@ -113,6 +117,7 @@ export class ProductUpdateComponent implements OnInit {
   //   this.router.navigate(['pages/product/variant', evt.data.id]);
   // }
 
+  // TODO: Chuyển update variant thành dạng external
   variantAdded(evt: any) {
     if (this.product.variants.some(i => i.option1 === evt.newData.option1)) {
       evt.confirm.reject();
@@ -134,5 +139,31 @@ export class ProductUpdateComponent implements OnInit {
     })
     evt.confirm.resolve(evt.newData);
     console.log(this.product.variants)
+  }
+
+  onImageChanged(evt: any) {
+    console.log(evt)
+    this.fileService.upload(evt.newImage.src.split(',')[1], this.fileService.base64MimeType(evt.newImage.src)).subscribe(
+      res => {
+        console.log(res);
+        if (evt.oldImage?.shopifyId) {
+          this.productService.deleteImage(evt.oldImage.shopifyId, this.product.shopifyId, this.product.store.id);
+        }
+        this.productService.saveImage(`http://128.199.118.150:8000/api/file/${res.data.name}`, this.product.shopifyId, this.product.store.id).subscribe(
+          res1 => {
+            this.toastrService.show('Image has been uploaded successfully.', 'Successful !', { status: 'success' });
+            console.log(res1);
+          },
+          err1 => {
+            this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
+            this.product.images = this.product.images.filter((item, index) => index !== evt.index)
+            console.log(err1);
+          });
+      },
+      err => {
+        this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
+        this.product.images = this.product.images.filter((item, index) => index !== evt.index)
+        console.log(err);
+      });
   }
 }

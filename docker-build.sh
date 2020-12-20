@@ -1,1 +1,1 @@
-docker build -t printway-ui .
+docker build -t censodev/printway-ui .

@@ -1,3 +1,4 @@
+import { Image } from 'app/shared/image-grid-picker/image';
 import { Store } from './store';
 import { Supplier } from './supplier';
 export class Product {
@@ -37,15 +38,14 @@ export class ProductVariant {
     option3: string;
 }
 
-export class ProductImage {
-    id: number;
-    shopifyId: number;
-    position: number;
+export class ProductImage implements Image {
+    id?: number;
+    shopifyId?: number;
+    position?: number;
     src: string;
-    width: number;
-    height: number;
-    attachment: string;
-    product: Product;
+    width?: number;
+    height?: number;
+    product?: Product;
 }
 
 export class ProductTemplate {
