@@ -73,6 +73,14 @@ export class ProductService {
     });
   }
 
+  saveImageAsBase64(src: string, shopifyProductId: number, storeId: number): Observable<ProductImage> {
+    return this.http.post<ProductImage>(`${BASE_URL}/image-base64`, {
+      src: src,
+      shopifyProductId: shopifyProductId,
+      storeId: storeId,
+    });
+  }
+
   deleteImage(id: number, shopifyProductId: number, storeId: number): Observable<any> {
     const params = new HttpParams()
       .set('id', id.toString())

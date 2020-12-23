@@ -143,27 +143,23 @@ export class ProductUpdateComponent implements OnInit {
 
   onImageChanged(evt: any) {
     console.log(evt)
-    this.fileService.upload(evt.newImage.src.split(',')[1], this.fileService.base64MimeType(evt.newImage.src)).subscribe(
+
+    if (evt.oldImage?.shopifyId) {
+      this.productService.deleteImage(evt.oldImage.shopifyId, this.product.shopifyId, this.product.store.id).subscribe(
+        res => console.log(res)
+      )
+    }
+
+    this.productService.saveImageAsBase64(evt.newImage.src.split(',')[1], this.product.shopifyId, this.product.store.id).subscribe(
       res => {
-        console.log(res);
-        if (evt.oldImage?.shopifyId) {
-          this.productService.deleteImage(evt.oldImage.shopifyId, this.product.shopifyId, this.product.store.id);
-        }
-        this.productService.saveImage(`http://128.199.118.150:8000/api/file/${res.data.name}`, this.product.shopifyId, this.product.store.id).subscribe(
-          res1 => {
-            this.toastrService.show('Image has been uploaded successfully.', 'Successful !', { status: 'success' });
-            console.log(res1);
-          },
-          err1 => {
-            this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
-            this.product.images = this.product.images.filter((item, index) => index !== evt.index)
-            console.log(err1);
-          });
+        this.toastrService.show('Image has been uploaded successfully.', 'Successful !', { status: 'success' });
+        console.log(res)
       },
       err => {
         this.toastrService.show('Somethings went wrong. Please try again.', 'Failed !', { status: 'danger' });
         this.product.images = this.product.images.filter((item, index) => index !== evt.index)
-        console.log(err);
-      });
+        console.log(err)
+      }
+    );
   }
 }

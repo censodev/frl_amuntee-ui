@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { DataTableComponent } from './../../../shared/data-table/data-table.component';
 import { AuthService } from 'app/auth/auth.service';
 import { Store } from './../../../@core/models/business/store';
@@ -76,7 +77,8 @@ export class ProductAddComponent implements OnInit {
   constructor(private productService: ProductService,
               private toastrService: NbToastrService,
               private storeService: StoreService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.product.status = 'draft';
@@ -99,6 +101,7 @@ export class ProductAddComponent implements OnInit {
       res => {
         console.log(res);
         this.toastrService.show('New product has been added successfully.', 'Successful !', { status: 'success' });
+        this.router.navigate(['/pages/product', res.id]);
       },
       err => {
         console.log(err);
