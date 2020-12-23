@@ -34,14 +34,14 @@ const routes: Routes = [
     path: 'template/:id',
     component: ProductTemplateUpdateComponent,
   },
-  // {
-  //   path: 'variant/add',
-  //   component: ProductVariantAddComponent,
-  // },
-  // {
-  //   path: 'variant/:id',
-  //   component: ProductVariantUpdateComponent,
-  // },
+  {
+    path: ':id/variant/add',
+    component: ProductVariantAddComponent,
+  },
+  {
+    path: 'variant/:id',
+    component: ProductVariantUpdateComponent,
+  },
 ];
 
 @NgModule({

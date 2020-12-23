@@ -1,1 +1,56 @@
-<p>product-variant-update works!</p>
+<nb-card>
+    <nb-card-header>
+        Variant Image
+    </nb-card-header>
+    <nb-card-body>
+        
+    </nb-card-body>
+</nb-card>
+
+<nb-card>
+    <nb-card-header>
+        Create Variant
+    </nb-card-header>
+    <nb-card-body>
+        <form #formAdd="ngForm" (ngSubmit)="onSubmit()" class="row">
+            <div class="form-group col-md-12">
+                <label class="label" for="">Title</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="variant.option1" name="option1" required #option1="ngModel" placeholder="Title">
+                <p class="caption status-danger" *ngIf="option1.touched && option1.errors?.required">
+                    Title is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Barcode</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="variant.barcode" name="barcode" #barcode="ngModel" placeholder="Barcode">
+                <p class="caption status-danger" *ngIf="barcode.touched && barcode.errors?.required">
+                    Barcode is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">SKU</label>
+                <input nbInput fullWidth type="text" [(ngModel)]="variant.sku" name="sku" #sku="ngModel" placeholder="SKU">
+                <p class="caption status-danger" *ngIf="sku.touched && sku.errors?.required">
+                    SKU is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Price</label>
+                <input nbInput fullWidth type="number" [(ngModel)]="variant.price" name="price" required #price="ngModel" placeholder="Price">
+                <p class="caption status-danger" *ngIf="price.touched && price.errors?.required">
+                    Price is required!
+                </p>
+            </div>
+            <div class="form-group col-md-6 col-sm-12">
+                <label class="label" for="">Compare At Price</label>
+                <input nbInput fullWidth type="number" [(ngModel)]="variant.compareAtPrice" name="compareAtPrice" required #compareAtPrice="ngModel" placeholder="Compare At Price">
+                <p class="caption status-danger" *ngIf="compareAtPrice.touched && compareAtPrice.errors?.required">
+                    Compare At Price is required!
+                </p>
+            </div>
+            <div class="col-md-12">
+                <button [disabled]="!formAdd.form.valid" nbButton status="success">Update</button>
+            </div>
+        </form>
+    </nb-card-body>
+</nb-card>

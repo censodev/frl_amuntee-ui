@@ -24,6 +24,7 @@ export class ProductUpdateComponent implements OnInit {
     height: '400px',
   };
   variantsSettings = {
+    mode: 'external',
     pager: { display: false },
     actions: {
       delete: false,
@@ -109,36 +110,12 @@ export class ProductUpdateComponent implements OnInit {
       });
   }
 
-  // variantAdded(evt: any) {
-  //   this.router.navigate(['pages/product/variant/add']);
-  // }
-
-  // variantEdited(evt: any) {
-  //   this.router.navigate(['pages/product/variant', evt.data.id]);
-  // }
-
-  // TODO: Chuyển update variant thành dạng external
   variantAdded(evt: any) {
-    if (this.product.variants.some(i => i.option1 === evt.newData.option1)) {
-      evt.confirm.reject();
-      return;
-    }
-    evt.confirm.resolve(evt.newData);
-    this.product.variants = [evt.newData, ...this.product.variants];
+    this.router.navigate(['pages/product', this.product.id, 'variant', 'add']);
   }
 
   variantEdited(evt: any) {
-    if (evt.data.option1 != evt.newData.option1 && this.product.variants.some(i => i.option1 == evt.newData.option1)) {
-      evt.confirm.reject();
-      return;
-    }
-    this.product.variants.forEach((i, index) => {
-      if (i.option1 == evt.data.option1) {
-        this.product.variants[index] = evt.newData;
-      }
-    })
-    evt.confirm.resolve(evt.newData);
-    console.log(this.product.variants)
+    this.router.navigate(['pages/product/variant', evt.data.id]);
   }
 
   onImageChanged(evt: any) {

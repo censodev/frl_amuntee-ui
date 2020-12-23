@@ -1,4 +1,4 @@
-import { ProductTemplate, ProductImage } from './../models/business/product';
+import { ProductTemplate, ProductImage, ProductVariant } from './../models/business/product';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'environments/environment';
@@ -87,5 +87,17 @@ export class ProductService {
       .set('shopifyProductId', shopifyProductId.toString())
       .set('storeId', storeId.toString());
     return this.http.delete(`${BASE_URL}/image`, { params: params });
+  }
+
+  createVariant(variant: ProductVariant): Observable<ProductVariant> {
+    return this.http.post<ProductVariant>(`${BASE_URL}/variant`, variant);
+  }
+
+  updateVariant(variant: ProductVariant): Observable<ProductVariant> {
+    return this.http.put<ProductVariant>(`${BASE_URL}/variant/${variant.id}`, variant);
+  }
+
+  findVariant(id: number): Observable<ProductVariant> {
+    return this.http.get<ProductVariant>(`${BASE_URL}/variant/${id}`);
   }
 }
