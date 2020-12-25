@@ -1,0 +1,23 @@
+.wrapper {
+    input {
+        :focus {
+            outline: none;
+        }
+        opacity: 0;
+    }
+
+    img {
+        object-fit: cover;
+    }
+
+    .alias {
+        border: 3px solid rgba(0, 0, 0, 0.3);
+        border-radius: 0.25rem;
+    }
+
+    nb-icon {
+        font-size: 3rem;
+        color: rgba(0, 0, 0, 0.3);
+    }
+}
+

@@ -1,5 +1,5 @@
+import { ImagePickerComponent } from './../image-picker/image-picker.component';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { ImagePickerConf, NgpImagePickerComponent } from 'ngp-image-picker';
 import { Image } from './image';
 
 @Component({
@@ -8,17 +8,10 @@ import { Image } from './image';
   styleUrls: ['./image-grid-picker.component.scss']
 })
 export class ImageGridPickerComponent implements OnInit {
-  @Input() config: ImagePickerConf = {
-    borderRadius: "4px",
-    language: "en",
-    width: "100%",
-    height: "150px",
-    compressInitial: true,
-  };
   @Input() images: Image[];
   @Output() imagesChange = new EventEmitter<Image[]>();
   @Output() onChanged = new EventEmitter<any>();
-  @ViewChild('newPicker') newPicker: NgpImagePickerComponent;
+  @ViewChild('newPicker') newPicker: ImagePickerComponent;
 
   constructor() { }
 
@@ -33,6 +26,6 @@ export class ImageGridPickerComponent implements OnInit {
     });
     this.images[index] = { src: base64 };
     this.imagesChange.emit(this.images);
-    setTimeout(() => this.newPicker.loadImage = false, 100)
+    this.newPicker.src = null;
   }
 }

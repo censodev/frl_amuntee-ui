@@ -1,15 +1,15 @@
 <div class="row" *ngIf="config">
-    <div *ngFor="let image of images; index as i" class="col-md-3 col-sm-6">
-        <ngp-image-picker
-            [_imageSrc]="image.src"
-            [_config]="config"
-            ($imageChanged)="onImageChanged($event, i)"
-        ></ngp-image-picker>
+    <div *ngFor="let image of images; index as i" class="col-md-3 col-sm-6 my-3">
+        <ngx-image-picker
+            [src]="image.src"
+            (onImageChanged)="onImageChanged($event, i)"
+        >
+        </ngx-image-picker>
     </div>
-    <div class="col-md-3 col-sm-6">
-        <ngp-image-picker #newPicker
-            [_config]="config"
-            ($imageChanged)="onImageChanged($event, images.length)"
-        ></ngp-image-picker>
+    <div class="col-md-3 col-sm-6 my-3">
+        <ngx-image-picker #newPicker
+            (onImageChanged)="onImageChanged($event, images.length)"
+        >
+        </ngx-image-picker>
     </div>
 </div>

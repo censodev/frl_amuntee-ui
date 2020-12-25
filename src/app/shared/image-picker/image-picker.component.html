@@ -1,0 +1,10 @@
+<div class="wrapper position-relative"
+    [style.width]="config.width"
+    [style.height]="config.height"
+>
+    <input class="position-absolute w-100 h-100" type="file" (change)="addFile($event)">
+    <img *ngIf="src" class="w-100 h-100" [src]="src">
+    <div *ngIf="!src" class="alias w-100 h-100 d-flex justify-content-center align-items-center">
+        <nb-icon icon="camera-outline"></nb-icon>
+    </div>
+</div>
